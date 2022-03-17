@@ -1,12 +1,10 @@
 package gxu.data_structure.chess.core;
 
-import java.io.Serializable;
 
 /**
  * 棋子的逻辑模型
  */
-public abstract class ChessBoardItem implements Serializable {
-    private static final long serialVersionUID = 3082487677031917998L;
+public abstract class ChessBoardItem {
     private int x;
     private int y;
 

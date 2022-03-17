@@ -4,13 +4,12 @@ import gxu.data_structure.chess.core.ChessBoard;
 import gxu.data_structure.chess.core.ChessBoardItem;
 import gxu.data_structure.chess.core.Point;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class XqChessBoard implements ChessBoard, Constants, Serializable {
+public class XqChessBoard implements ChessBoard, Constants {
     //我们预置一个常量数组 ccInBoard[256]，表示哪些格子在棋盘外(填0)，哪些格子在棋盘内(填1)
     //这样，要判断是否在棋子内就非常简单了，只需要ccInBoard[sq] != 0。
     private static final int[] ccInBoard = {
