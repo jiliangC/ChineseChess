@@ -1,11 +1,9 @@
 package gxu.data_structure.chess.core;
 
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Move implements Serializable {
-    private static final long serialVersionUID = -1158771405035884820L;
+public class Move {
     private Point from;
     private Point to;
 

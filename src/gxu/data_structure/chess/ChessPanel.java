@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.List;
+
 
 /**
  * 象棋游戏的界面，提供如下功能：
@@ -27,10 +29,11 @@ import java.io.OutputStream;
  * C、获胜后的UI
  */
 public class ChessPanel extends JPanel implements Constants {
-
-    private static final BufferedImage imageChessBoard = Resource.getImage("main.gif");
     //声音资源:
     private static final MP3Player jjPlayer = new MP3Player(Resource.getStream("ding.mp3"));
+
+    //棋子资源
+    private static final BufferedImage imageChessBoard = Resource.getImage("main.gif");
     private static final BufferedImage redCheImg = Resource.getImage("红车.GIF");
     private static final BufferedImage redJiangImg = Resource.getImage("红将.gif");
     private static final BufferedImage redMaImg = Resource.getImage("红马.gif");
@@ -42,13 +45,13 @@ public class ChessPanel extends JPanel implements Constants {
     private static final BufferedImage blackJiangImg = Resource.getImage("黑将.gif");
     private static final BufferedImage blackMaImg = Resource.getImage("黑马.gif");
     private static final BufferedImage blackPaoImg = Resource.getImage("黑炮.gif");
-
-
-    //事件
     private static final BufferedImage blackShiImg = Resource.getImage("黑士.gif");
     private static final BufferedImage blackXiangImg = Resource.getImage("黑象.gif");
     private static final BufferedImage blackZuImg = Resource.getImage("黑卒.gif");
+
+    //点击图片
     private static final BufferedImage selectedImg = Resource.getImage("select.gif");
+    private static final BufferedImage cursorImg = Resource.getImage("光标.gif");
     private BufferedImage image; //panel的image,所有的画图操作都在这个image上进行，然后调用repaint方法重会。
     private boolean red = true; //默认是红先手
     private boolean playing = false; //游戏是否正在进行
@@ -171,9 +174,21 @@ public class ChessPanel extends JPanel implements Constants {
     }
 
     private void drawSelect(Graphics g, int x, int y) {
+
         int px = x0 + x * lineHeight - chessSize / 2;
         int py = y0 + y * lineHeight - chessSize / 2;
         g.drawImage(selectedImg, px, py, null);
+    }
+
+    private void drawCursor(Graphics g, int x, int y) {
+        List<Move> list = walkState.getAllMove(red, x, y);
+        for (Move move1 : list) {
+            Point point = move1.getTo();
+            int px = 20 + x0 + point.getX() * lineHeight - chessSize / 2;
+            int py = 20 + y0 + point.getY() * lineHeight - chessSize / 2;
+            g.drawImage(cursorImg, px, py, null);
+        }
+
     }
 
     /**
@@ -187,16 +202,20 @@ public class ChessPanel extends JPanel implements Constants {
             return;
         }
         if (walkState.canSelect(red, x, y)) { //如果可以选中这个棋子的话，则选中
+
             Graphics2D g = resetBackground();
             drawChessBoard(g);
-            drawSelect(g, x, y);
+            drawSelect(g, x, y); //绘制选择
+            drawCursor(g, x, y);  //绘制可走点的光标
             g.dispose();
             repaint();
             selectPoint = new Point(x, y);
         } else if (selectPoint != null) {    //走棋了
+            //原来点的棋子的坐标
             int tx = selectPoint.getX();
             int ty = selectPoint.getY();
             Move move = new Move(tx, ty, x, y);
+
             if (walkState.canMove(red, move)) { //判断可否走棋
                 int state = chessBoard.getState(tx, ty);
                 chessBoard.setState(tx, ty, EMPTY);

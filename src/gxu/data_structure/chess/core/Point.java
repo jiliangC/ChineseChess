@@ -1,12 +1,10 @@
 package gxu.data_structure.chess.core;
 
-import java.io.Serializable;
 
 /**
  * 简单的x,y构成的Point
  */
-public class Point implements Serializable {
-    private static final long serialVersionUID = 285175495026885829L;
+public class Point {
     private int x;
     private int y;
 
