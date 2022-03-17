@@ -16,9 +16,9 @@ public class XqWalkState implements WalkState, Constants {
 
     private final Map<Integer, Walker> walkerMap = new HashMap<>();
     private XqChessBoard chessBoard;
-    private Walker jjMaWalker = new JiangJunMaWalker(this);
-    private Walker jjRedZuWalker = new JiangJunRedZuWalker(this);
-    private Walker jjBlackZuWalker = new JiangJunBlackZuWalker(this);
+    private final Walker jjMaWalker = new JiangJunMaWalker(this);
+    private final Walker jjRedZuWalker = new JiangJunRedZuWalker(this);
+    private final Walker jjBlackZuWalker = new JiangJunBlackZuWalker(this);
 
 
     public XqWalkState(XqChessBoard chessBoard) {

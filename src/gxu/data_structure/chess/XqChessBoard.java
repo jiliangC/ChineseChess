@@ -4,7 +4,6 @@ import gxu.data_structure.chess.core.ChessBoard;
 import gxu.data_structure.chess.core.ChessBoardItem;
 import gxu.data_structure.chess.core.Point;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -12,12 +11,9 @@ import java.util.NoSuchElementException;
 
 
 public class XqChessBoard implements ChessBoard, Constants, Serializable {
-
-    @Serial
-    private static final long serialVersionUID = -653515905450525068L;
     //我们预置一个常量数组 ccInBoard[256]，表示哪些格子在棋盘外(填0)，哪些格子在棋盘内(填1)
     //这样，要判断是否在棋子内就非常简单了，只需要ccInBoard[sq] != 0。
-    private static final int ccInBoard[] = {
+    private static final int[] ccInBoard = {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -43,7 +39,7 @@ public class XqChessBoard implements ChessBoard, Constants, Serializable {
      * C. 16~22依次表示黑方的将、士、象、马、车、炮和卒。
      * 这样做的好处是判断棋子的颜色非常简单——(pc & 8) != 0 表示红方的棋子，(pc & 16) != 0 表示黑方的棋子。
      */
-    private int ucpcSquares[] = new int[256];
+    private final int[] ucpcSquares = new int[256];
     private Point jiang;
     private Point shuai;
 
