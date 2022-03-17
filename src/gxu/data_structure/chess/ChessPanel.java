@@ -6,9 +6,8 @@ import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.Point;
 import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.util.GameSave;
-import gxu.data_structure.chess.util.MP3Player;
 import gxu.data_structure.chess.util.MyOptionPane;
-import gxu.data_structure.chess.util.Resource;
+import gxu.data_structure.chess.util.Res;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,30 +27,8 @@ import java.util.List;
  * B、棋子的绘制、事件的触发；走棋后，事件传递给GameState去处理
  * C、获胜后的UI
  */
-public class ChessPanel extends JPanel implements Constants {
-    //声音资源:
-    private static final MP3Player jjPlayer = new MP3Player(Resource.getStream("ding.mp3"));
+public class ChessPanel extends JPanel implements Constants, Res {
 
-    //棋子资源
-    private static final BufferedImage imageChessBoard = Resource.getImage("main.gif");
-    private static final BufferedImage redCheImg = Resource.getImage("红车.GIF");
-    private static final BufferedImage redJiangImg = Resource.getImage("红将.gif");
-    private static final BufferedImage redMaImg = Resource.getImage("红马.gif");
-    private static final BufferedImage redPaoImg = Resource.getImage("红炮.gif");
-    private static final BufferedImage redShiImg = Resource.getImage("红士.gif");
-    private static final BufferedImage redXiangImg = Resource.getImage("红象.gif");
-    private static final BufferedImage redZuImg = Resource.getImage("红卒.gif");
-    private static final BufferedImage blackCheImg = Resource.getImage("黑车.gif");
-    private static final BufferedImage blackJiangImg = Resource.getImage("黑将.gif");
-    private static final BufferedImage blackMaImg = Resource.getImage("黑马.gif");
-    private static final BufferedImage blackPaoImg = Resource.getImage("黑炮.gif");
-    private static final BufferedImage blackShiImg = Resource.getImage("黑士.gif");
-    private static final BufferedImage blackXiangImg = Resource.getImage("黑象.gif");
-    private static final BufferedImage blackZuImg = Resource.getImage("黑卒.gif");
-
-    //点击图片
-    private static final BufferedImage selectedImg = Resource.getImage("select.gif");
-    private static final BufferedImage cursorImg = Resource.getImage("光标.gif");
     private BufferedImage image; //panel的image,所有的画图操作都在这个image上进行，然后调用repaint方法重会。
     private boolean red = true; //默认是红先手
     private boolean playing = false; //游戏是否正在进行
