@@ -6,10 +6,7 @@ import gxu.data_structure.chess.util.Resource;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class PrimaryPageWindow extends JFrame implements Res {
     private MP3Player.LoopPlay loopPlay;
@@ -47,9 +44,26 @@ public class PrimaryPageWindow extends JFrame implements Res {
         contentPane.setLayout(null);
         panel.setBounds(0, 0, 558, 620);
         panel.setLayout(null);
-        panel.add(imageicon = new JLabel(new ImageIcon(choose_single)));
-        imageicon.setBounds(127, 160, choose_single.getWidth(), choose_single.getHeight());
-        panel.add(imageicon = new JLabel(new ImageIcon(choose_double)));
+        JLabel  jLabel1 = new JLabel();
+        jLabel1.setText("单人游戏");
+        panel.add(jLabel1);
+        jLabel1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
+        jLabel1.setBounds(127, 160, choose_single.getWidth(), choose_single.getHeight());
+        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jLabel1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jLabelMouseEntered(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jLabelMouseExited(e);
+            }
+        });
+        panel.add(imageicon = new JLabel());
+
         imageicon.setBounds(127, 260, choose_double.getWidth(), choose_double.getHeight());
         panel.add(imageicon = new JLabel(new ImageIcon(choose_gameexit)));
         imageicon.setBounds(127, 360, choose_gameexit.getWidth(), choose_gameexit.getHeight());
@@ -70,6 +84,16 @@ public class PrimaryPageWindow extends JFrame implements Res {
         }
         pack();
         setLocationRelativeTo(null);
+    }
+
+    private void jLabelMouseExited(MouseEvent e) {
+        JLabel jLabel = (JLabel) e.getSource();
+        jLabel.setForeground(Color.black);
+    }
+
+    private void jLabelMouseEntered(MouseEvent e) {
+        JLabel jLabel = (JLabel) e.getSource();
+        jLabel.setForeground(Color.WHITE);
     }
 
     private void thisWindowClosing(WindowEvent e) {
