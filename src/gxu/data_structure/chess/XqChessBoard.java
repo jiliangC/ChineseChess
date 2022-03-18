@@ -70,6 +70,7 @@ public class XqChessBoard implements ChessBoard, Constants {
             jiang.setX(x);
             jiang.setY(y);
         }
+        //返回原来（x,y）上的棋子
         return val;
     }
 
@@ -118,11 +119,6 @@ public class XqChessBoard implements ChessBoard, Constants {
         return shuai;
     }
 
-    @Override
-    public Iterator<ChessBoardItem> iterator() {
-        return new Itr();
-    }
-
 
     //二维坐标转一维坐标
     private int indexFor(int x, int y) {
@@ -132,8 +128,17 @@ public class XqChessBoard implements ChessBoard, Constants {
         return 16 * (y + 3) + x + 3;
     }
 
+
+    //返回棋盘数组
     public int[] getUcpcSquares() {
         return ucpcSquares;
+    }
+
+
+    //这里
+    @Override
+    public Iterator<ChessBoardItem> iterator() {
+        return new Itr();
     }
 
     private class Itr implements Iterator<ChessBoardItem> {

@@ -154,6 +154,10 @@ public class XqWalkState implements WalkState, Constants {
             //对方被将军的情况下，需要判断对方是否被将死.为对方生成所有走法，如果每一步都将军，说明将死.
             boolean die = true; //是否将死
             for (ChessBoardItem item : chessBoard) {
+
+                System.out.println("这里：" + item.getX() + " " + item.getY() + " " + item.getState());
+
+
                 if (red ? isBlack(item.getState()) : isRed(item.getState())) { //找到自己的棋子
                     List<Move> moveList = getAllMove(!red, item.getX(), item.getY());
                     for (Move move : moveList) {
