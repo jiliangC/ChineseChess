@@ -127,30 +127,8 @@ public class PrimaryPageWindow extends JFrame implements Res {
     }
 
     private void DoubleGame() {
-        ChessPanel pnl = new ChessPanel();
-        var contentPane = getContentPane();
-
-        contentPane.setLayout(null);
-        contentPane.add(pnl);
-        pnl.setBounds(0, 0, 558, 620);
-
-        {
-            // compute preferred size
-            Dimension preferredSize = new Dimension();
-            for (int i = 0; i < contentPane.getComponentCount(); i++) {
-                Rectangle bounds = contentPane.getComponent(i).getBounds();
-                preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-            }
-            Insets insets = contentPane.getInsets();
-            preferredSize.width += insets.right;
-            preferredSize.height += insets.bottom;
-            contentPane.setMinimumSize(preferredSize);
-            contentPane.setPreferredSize(preferredSize);
-        }
-        pack();
-        setLocationRelativeTo(null);
-
+        new ChessWindow().setVisible(true);
+        dispose();
     }
 
     private void GameExit() {
