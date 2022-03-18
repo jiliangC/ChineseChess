@@ -117,7 +117,7 @@ public class XqWalkState implements WalkState, Constants {
             return new ArrayList<>();
         }
 
-        //    private final Map<Integer, Walker> walkerMap = new HashMap<>();
+        // private final Map<Integer, Walker> walkerMap = new HashMap<>();
         int state = chessBoard.getState(x, y);
         Walker walker = walkerMap.get(state);
         List<Move> move = walker.getAllMove(red, x, y);
@@ -136,6 +136,7 @@ public class XqWalkState implements WalkState, Constants {
     //将棋子对象添加到哈希表中
     public void registerWalker(Walker walker) {
         walkerMap.put(walker.getState(), walker);
+        //将本对象添加到哈希表中
         walker.setState(this);
     }
 
