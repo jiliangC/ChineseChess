@@ -31,5 +31,15 @@ public interface Constants {
     int riverYb = 4;
     int riverYR = 5;
 
+    // 棋子价值
+    int Che = 90;
+    int Pao = 45;
+    int Ma = 40;
+    int Shi = 20;
+    int Xiang = 20;
+    int crossBing = 20;
+    int uncrossBing = 10;
+    int underBing = 10;
+
 
 }
