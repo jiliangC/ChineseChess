@@ -1,7 +1,9 @@
 package gxu.data_structure.chess;
 
-public class text {
+import javax.swing.*;
+
+public class text{
     public static void main(String[] args) {
-        System.out.println("测试文件");
+        new PrimaryPageWindow().setVisible(true);
     }
 }

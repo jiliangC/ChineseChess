@@ -23,6 +23,13 @@ public interface Res {
     BufferedImage blackShiImg = Resource.getImage("黑士.gif");
     BufferedImage blackXiangImg = Resource.getImage("黑象.gif");
     BufferedImage blackZuImg = Resource.getImage("黑卒.gif");
+    BufferedImage imageBackground = Resource.getImage("main.gif");
+    BufferedImage choose_single = Resource.getImage("Menu2_0.png");
+    BufferedImage choose_double = Resource.getImage("Menu1_0.png");
+    BufferedImage choose_gameexit = Resource.getImage("Menu4_0.png");
+    BufferedImage reactionsingle = Resource.getImage("Menu2_1.png");
+    BufferedImage reactiondouble = Resource.getImage("Menu1_1.png");
+    BufferedImage reactiongameexit = Resource.getImage("Menu4_1.png");
 
     //点击图片
     BufferedImage selectedImg = Resource.getImage("select.gif");

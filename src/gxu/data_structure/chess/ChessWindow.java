@@ -149,7 +149,7 @@ public class ChessWindow extends JFrame implements Constants {
 
         //======== this ========
         setResizable(false);
-        setTitle("\u4e2d\u56fd\u8c61\u68cb");
+        setTitle("中国象棋");
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
