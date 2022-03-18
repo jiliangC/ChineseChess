@@ -10,8 +10,11 @@ new FormModel {
 			"defaultCloseOperation": 0
 			"$locationPolicy": 1
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "thisWindowClosing", true ) )
-			add( new FormComponent( "edu.hubu.cnxq.ChessPanel" ) {
+			add( new FormComponent( "gxu.data_structure.chess.ChessPanel" ) {
 				name: "panel"
+				auxiliary() {
+					"JavaCodeGenerator.className": "u"
+				}
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 0
 				"y": 0
@@ -78,4 +81,3 @@ new FormModel {
 		} )
 	}
 }
-

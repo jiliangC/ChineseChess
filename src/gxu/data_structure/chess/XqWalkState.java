@@ -13,9 +13,12 @@ import java.util.Map;
 
 
 public class XqWalkState implements WalkState, Constants {
-
+    //存棋子状态和对象
     private final Map<Integer, Walker> walkerMap = new HashMap<>();
+    //象棋棋盘
     private XqChessBoard chessBoard;
+
+    //将军——棋子
     private final Walker jjMaWalker = new JiangJunMaWalker(this);
     private final Walker jjRedZuWalker = new JiangJunRedZuWalker(this);
     private final Walker jjBlackZuWalker = new JiangJunBlackZuWalker(this);
@@ -109,17 +112,20 @@ public class XqWalkState implements WalkState, Constants {
 
     @Override
     public List<Move> getAllMove(boolean red, int x, int y) {
-        //坐标在棋盘上
+        //不坐标在棋盘上
         if (!chessBoard.inBoard(x, y)) {
             return new ArrayList<>();
         }
 
+        //    private final Map<Integer, Walker> walkerMap = new HashMap<>();
         int state = chessBoard.getState(x, y);
         Walker walker = walkerMap.get(state);
         List<Move> move = walker.getAllMove(red, x, y);
         List<Move> moveList = new ArrayList<>();
         for (Move m : move) {
+            //可走格子上的棋子
             int s = chessBoard.getState(m.getTo().getX(), m.getTo().getY());
+            //System.out.println(s);
             if (chessBoard.inBoard(m.getFrom().getX(), m.getFrom().getY()) && chessBoard.inBoard(m.getTo().getX(), m.getTo().getY()) && !isSelfState(s, red)) {
                 moveList.add(m);
             }
@@ -127,11 +133,13 @@ public class XqWalkState implements WalkState, Constants {
         return moveList;
     }
 
+    //将棋子对象添加到哈希表中
     public void registerWalker(Walker walker) {
         walkerMap.put(walker.getState(), walker);
         walker.setState(this);
     }
 
+    //将棋子对象添加到哈希表中
     public void registerWalker(Walker walker, int... states) {
         for (int state : states) {
             walkerMap.put(state, walker);
