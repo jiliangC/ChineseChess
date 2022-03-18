@@ -109,9 +109,11 @@ public class XqWalkState implements WalkState, Constants {
 
     @Override
     public List<Move> getAllMove(boolean red, int x, int y) {
+        //坐标在棋盘上
         if (!chessBoard.inBoard(x, y)) {
             return new ArrayList<>();
         }
+
         int state = chessBoard.getState(x, y);
         Walker walker = walkerMap.get(state);
         List<Move> move = walker.getAllMove(red, x, y);

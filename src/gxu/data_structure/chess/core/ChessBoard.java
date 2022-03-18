@@ -9,7 +9,7 @@ public interface ChessBoard extends Iterable<ChessBoardItem> {
 
     int getMaxY();
 
-    //获得指定位置处的棋子状态码；比如在五子棋中，棋子状态可能是黑棋、白棋、或者空白
+    //获得指定位置处的棋子状态码
     int getState(int x, int y);
 
     //设置状态码
