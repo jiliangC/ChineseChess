@@ -5,6 +5,7 @@ import gxu.data_structure.chess.core.ChessBoardItem;
 import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.Point;
 import gxu.data_structure.chess.core.WinEnum;
+import gxu.data_structure.chess.robot.MaxMinTree;
 import gxu.data_structure.chess.util.GameSave;
 import gxu.data_structure.chess.util.MyOptionPane;
 import gxu.data_structure.chess.util.Res;
@@ -35,6 +36,10 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private XqChessBoard chessBoard = new XqChessBoard();
     private XqWalkState walkState = new XqWalkState(chessBoard);
 
+    //评估函数
+    //private final Evaluation evaluation = new Evaluation(chessBoard);
+    //最大最小树
+    private final MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
 
     //资源图片：
     private Point selectPoint; //选中的棋子
@@ -53,7 +58,9 @@ public class ChessPanel extends JPanel implements Constants, Res {
                     int y = floorDiv(e.getY() - y0);
                     if (x >= 0 && x <= 8 && y >= 0 && y <= 9) {
                         System.out.print("选择了坐标为（" + x + "," + y + "）\n");
+                        System.out.println("黑棋子的总价值为：" + maxMinTree.e());
                         onClick(x, y);
+
                     }
                 }
             }

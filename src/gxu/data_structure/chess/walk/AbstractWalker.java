@@ -18,15 +18,15 @@ public abstract class AbstractWalker implements Walker {
 
     //index转（x,y）
     public static Point pointFor(int index) {
-        return new Point(index & 16 - 3, index / 16 - 3);
+        return new Point((index - 51) % 16, (index - 51) / 16);
     }
 
     public static int pointForX(int index) {
-        return index % 16 - 3;
+        return (index - 51) % 16;
     }
 
     public static int pointForY(int index) {
-        return index / 16 - 3;
+        return (index - 51) / 16;
     }
 
     public static boolean isRed(int state) {

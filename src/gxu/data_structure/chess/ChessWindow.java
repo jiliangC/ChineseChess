@@ -52,6 +52,7 @@ public class ChessWindow extends JFrame implements Constants {
     private void menuConfirmExit(ActionEvent e) {
         if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要退出？", "是", "否")) {
             dispose();
+            new PrimaryPageWindow().setVisible(true);
         }
     }
 
@@ -76,6 +77,7 @@ public class ChessWindow extends JFrame implements Constants {
     private void thisWindowClosing(WindowEvent e) {
         if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要退出？", "是", "否")) {
             dispose();
+            new PrimaryPageWindow().setVisible(true);
         }
     }
 
