@@ -19,16 +19,12 @@ public class ChessWindow extends JFrame implements Constants, Res {
     private MP3Player.LoopPlay loopPlay;
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JMenuBar menuBar1;
-    private JMenu menu1;
-    private JMenuItem menuItem1;
-    private JMenuItem menuItem4;
-    private JMenuItem menuItem7;
-    private JMenuItem menuItem2;
-    private JMenu menu3;
-    private JMenuItem menuItem5;
-    private JMenuItem menuItem6;
-    private JMenu menu2;
-    private JMenuItem menuItem3;
+    private JMenu menu_file;
+    private JMenuItem menuItem_save;
+    private JMenuItem menuItem_open;
+    private JMenu menu_help;
+    private JMenuItem menuItem_about;
+    private JMenuItem menuItem_more;
     private ChessPanel panel;
     private boolean robot;
 
@@ -134,19 +130,20 @@ public class ChessWindow extends JFrame implements Constants, Res {
 
     }
 
+    //More
+    private void menuMore(ActionEvent e) {
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar1 = new JMenuBar();
-        menu1 = new JMenu();
-        menuItem1 = new JMenuItem();
-        menuItem4 = new JMenuItem();
-        menuItem7 = new JMenuItem();
-        menuItem2 = new JMenuItem();
-        menu3 = new JMenu();
-        menuItem5 = new JMenuItem();
-        menuItem6 = new JMenuItem();
-        menu2 = new JMenu();
-        menuItem3 = new JMenuItem();
+        menu_file = new JMenu();
+        menuItem_save = new JMenuItem();
+        menuItem_open = new JMenuItem();
+        menu_help = new JMenu();
+        menuItem_about = new JMenuItem();
+        menuItem_more = new JMenuItem();
         panel = new ChessPanel(robot);
 
         //======== this ========
@@ -163,178 +160,39 @@ public class ChessWindow extends JFrame implements Constants, Res {
         contentPane.setLayout(null);
 
 
-
         //======== menuBar1 ========
         {
-
-            //======== menu1 ========
+            //======== menu_file ========
             {
-                menu1.setText("\u6e38\u620f");
-
-                //---- menuItem1 ----
-                menuItem1.setText("\u91cd\u65b0\u5f00\u5c40\uff08\u5148\u624b\uff09");
-                menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-                menuItem1.addActionListener(e -> menuGameStartFirst(e));
-                menu1.add(menuItem1);
-
-                //---- menuItem4 ----
-                menuItem4.setText("\u91cd\u65b0\u5f00\u5c40\uff08\u540e\u624b\uff09");
-                menuItem4.addActionListener(e -> menuGameStartLast(e));
-                menu1.add(menuItem4);
-
-                //---- menuItem7 ----
-                menuItem7.setText("\u6094\u68cb");
-                menuItem7.addActionListener(e -> menuBackChess(e));
-                menu1.add(menuItem7);
-
-                //---- menuItem2 ----
-                menuItem2.setText("\u9000\u51fa");
-                menuItem2.addActionListener(e -> menuConfirmExit(e));
-                menu1.add(menuItem2);
-                menu1.addSeparator();
-            }
-            menuBar1.add(menu1);
-
-            //======== menu3 ========
-            {
-                menu3.setText("\u68cb\u8c31");
+                menu_file.setText("文件");
 
                 //---- menuItem5 ----
-                menuItem5.setText("\u4fdd\u5b58\u68cb\u5c40");
-                menuItem5.addActionListener(e -> menuGameSave(e));
-                menu3.add(menuItem5);
+                menuItem_save.setText("保存");
+                menuItem_save.addActionListener(e -> menuGameSave(e));
+                menu_file.add(menuItem_save);
 
                 //---- menuItem6 ----
-                menuItem6.setText("\u52a0\u8f7d\u68cb\u5c40");
-                menuItem6.addActionListener(e -> menuGameLoad(e));
-                menu3.add(menuItem6);
+                menuItem_open.setText("打开");
+                menuItem_open.addActionListener(e -> menuGameLoad(e));
+                menu_file.add(menuItem_open);
             }
-            menuBar1.add(menu3);
+            menuBar1.add(menu_file);
 
             //======== menu2 ========
             {
-                menu2.setText("\u5173\u4e8e");
+                menu_help.setText("帮助");
 
-                //---- menuItem3 ----
-                menuItem3.setText("\u6570\u636e\u7ed3\u6784");
-                menuItem3.addActionListener(e -> menuAbout(e));
-                menu2.add(menuItem3);
+                //---- menuItem_about ----
+                menuItem_about.setText("关于");
+                menuItem_about.addActionListener(e -> menuAbout(e));
+                menu_help.add(menuItem_about);
+
+                //---- menuItem_more ----
+                menuItem_more.setText("更多");
+                menuItem_more.addActionListener(e->menuMore(e));
+                menu_help.add(menuItem_more);
             }
-            menuBar1.add(menu2);
-        }//======== menuBar1 ========
-        {
-
-            //======== menu1 ========
-            {
-                menu1.setText("\u6e38\u620f");
-
-                //---- menuItem1 ----
-                menuItem1.setText("\u91cd\u65b0\u5f00\u5c40\uff08\u5148\u624b\uff09");
-                menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-                menuItem1.addActionListener(e -> menuGameStartFirst(e));
-                menu1.add(menuItem1);
-
-                //---- menuItem4 ----
-                menuItem4.setText("\u91cd\u65b0\u5f00\u5c40\uff08\u540e\u624b\uff09");
-                menuItem4.addActionListener(e -> menuGameStartLast(e));
-                menu1.add(menuItem4);
-
-                //---- menuItem7 ----
-                menuItem7.setText("\u6094\u68cb");
-                menuItem7.addActionListener(e -> menuBackChess(e));
-                menu1.add(menuItem7);
-
-                //---- menuItem2 ----
-                menuItem2.setText("\u9000\u51fa");
-                menuItem2.addActionListener(e -> menuConfirmExit(e));
-                menu1.add(menuItem2);
-                menu1.addSeparator();
-            }
-            menuBar1.add(menu1);
-
-            //======== menu3 ========
-            {
-                menu3.setText("\u68cb\u8c31");
-
-                //---- menuItem5 ----
-                menuItem5.setText("\u4fdd\u5b58\u68cb\u5c40");
-                menuItem5.addActionListener(e -> menuGameSave(e));
-                menu3.add(menuItem5);
-
-                //---- menuItem6 ----
-                menuItem6.setText("\u52a0\u8f7d\u68cb\u5c40");
-                menuItem6.addActionListener(e -> menuGameLoad(e));
-                menu3.add(menuItem6);
-            }
-            menuBar1.add(menu3);
-
-            //======== menu2 ========
-            {
-                menu2.setText("\u5173\u4e8e");
-
-                //---- menuItem3 ----
-                menuItem3.setText("\u6570\u636e\u7ed3\u6784");
-                menuItem3.addActionListener(e -> menuAbout(e));
-                menu2.add(menuItem3);
-            }
-            menuBar1.add(menu2);
-        }//======== menuBar1 ========
-        {
-
-            //======== menu1 ========
-            {
-                menu1.setText("\u6e38\u620f");
-
-                //---- menuItem1 ----
-                menuItem1.setText("\u91cd\u65b0\u5f00\u5c40\uff08\u5148\u624b\uff09");
-                menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-                menuItem1.addActionListener(e -> menuGameStartFirst(e));
-                menu1.add(menuItem1);
-
-                //---- menuItem4 ----
-                menuItem4.setText("\u91cd\u65b0\u5f00\u5c40\uff08\u540e\u624b\uff09");
-                menuItem4.addActionListener(e -> menuGameStartLast(e));
-                menu1.add(menuItem4);
-
-                //---- menuItem7 ----
-                menuItem7.setText("\u6094\u68cb");
-                menuItem7.addActionListener(e -> menuBackChess(e));
-                menu1.add(menuItem7);
-
-                //---- menuItem2 ----
-                menuItem2.setText("\u9000\u51fa");
-                menuItem2.addActionListener(e -> menuConfirmExit(e));
-                menu1.add(menuItem2);
-                menu1.addSeparator();
-            }
-            menuBar1.add(menu1);
-
-            //======== menu3 ========
-            {
-                menu3.setText("\u68cb\u8c31");
-
-                //---- menuItem5 ----
-                menuItem5.setText("\u4fdd\u5b58\u68cb\u5c40");
-                menuItem5.addActionListener(e -> menuGameSave(e));
-                menu3.add(menuItem5);
-
-                //---- menuItem6 ----
-                menuItem6.setText("\u52a0\u8f7d\u68cb\u5c40");
-                menuItem6.addActionListener(e -> menuGameLoad(e));
-                menu3.add(menuItem6);
-            }
-            menuBar1.add(menu3);
-
-            //======== menu2 ========
-            {
-                menu2.setText("\u5173\u4e8e");
-
-                //---- menuItem3 ----
-                menuItem3.setText("\u6570\u636e\u7ed3\u6784");
-                menuItem3.addActionListener(e -> menuAbout(e));
-                menu2.add(menuItem3);
-            }
-            menuBar1.add(menu2);
+            menuBar1.add(menu_help);
         }
         setJMenuBar(menuBar1);
 
@@ -378,6 +236,7 @@ public class ChessWindow extends JFrame implements Constants, Res {
         jLabel_restartred.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 panel.gameStartFirst();
                 panel.repaint();
             }
@@ -464,6 +323,8 @@ public class ChessWindow extends JFrame implements Constants, Res {
         setLocationRelativeTo(null);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
+
+
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 }
