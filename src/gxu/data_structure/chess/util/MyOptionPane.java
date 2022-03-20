@@ -1,5 +1,7 @@
 package gxu.data_structure.chess.util;
 
+import gxu.data_structure.chess.ChessWindow;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -9,7 +11,7 @@ import java.awt.event.MouseEvent;
 /**
  * 对于默认的OptionPane的美化
  */
-public class MyOptionPane {
+public class MyOptionPane{
     private static final ImageIcon closeIcon = Resource.getIcon("close.png");
     private static final ImageIcon closeActiveIcon = Resource.getIcon("close_active.png");
     private static int result = 0;
@@ -422,6 +424,7 @@ public class MyOptionPane {
             public void mouseReleased(MouseEvent e) {
                 dialog.dispose();
             }
+
         });
 
         return dialog;
