@@ -52,7 +52,7 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
         jLabel1.setText("单人游戏");
         panel.add(jLabel1);
         jLabel1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
-        jLabel1.setBounds(127, 160, choose_single.getWidth(), choose_single.getHeight());
+        jLabel1.setBounds(127, 160, 294, 62);
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.addMouseListener(new MouseAdapter() {
             @Override
@@ -74,7 +74,7 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
         jLabel2.setText("双人对战");
         panel.add(jLabel2);
         jLabel2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
-        jLabel2.setBounds(127, 260, choose_single.getWidth(), choose_single.getHeight());
+        jLabel2.setBounds(127, 260, 294, 62);
         jLabel2.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel2.addMouseListener(new MouseAdapter() {
             @Override
@@ -97,7 +97,7 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
         jLabel3.setText("退出游戏");
         panel.add(jLabel3);
         jLabel3.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
-        jLabel3.setBounds(127, 360, choose_single.getWidth(), choose_single.getHeight());
+        jLabel3.setBounds(127, 360, 294, 62);
         jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel3.addMouseListener(new MouseAdapter() {
             @Override
