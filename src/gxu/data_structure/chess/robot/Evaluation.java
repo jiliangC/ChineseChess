@@ -28,16 +28,19 @@ public class Evaluation implements Constants {
 
 
     public int eva() {
-        int Value = 0;
+        int B_Value = 0;
+        int R_Value = 0;
         //评估黑色的棋子的棋力价值；
         int[] map = xqChessBoard.getUcpcSquares();
         for (int i = 0; i < 255; i++) {
             int state = map[i];
             if (isBlack(state)) {
-                Value += values(state, i);
+                B_Value += values(state, i);
+            } else {
+                R_Value += values(state, i);
             }
         }
-        return -Value;
+        return (R_Value - B_Value);
     }
 
     //计算每个棋子的价值
