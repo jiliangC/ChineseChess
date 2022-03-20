@@ -42,6 +42,19 @@ public class XqChessBoard implements ChessBoard, Constants {
     private Point jiang;
     private Point shuai;
 
+
+    public void cloneSquares(int[] ucp) {
+        System.arraycopy(ucp, 0, ucpcSquares, 0, 256);
+    }
+
+    public void setJiang(Point jiang) {
+        this.jiang = jiang;
+    }
+
+    public void setShuai(Point shuai) {
+        this.shuai = shuai;
+    }
+
     @Override
     public int getMaxX() {
         return 9;
@@ -55,6 +68,10 @@ public class XqChessBoard implements ChessBoard, Constants {
     @Override
     public int getState(int x, int y) {
         return ucpcSquares[indexFor(x, y)];
+    }
+
+    public int getState(int index) {
+        return ucpcSquares[index];
     }
 
     @Override
@@ -121,7 +138,7 @@ public class XqChessBoard implements ChessBoard, Constants {
 
 
     //二维坐标转一维坐标
-    private int indexFor(int x, int y) {
+    protected int indexFor(int x, int y) {
         if (x < 0 || x >= getMaxX() || y < 0 || y >= getMaxY()) {
             throw new IndexOutOfBoundsException("x:" + x + ",y:" + y);
         }

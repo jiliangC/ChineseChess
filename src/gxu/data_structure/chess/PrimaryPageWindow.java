@@ -7,14 +7,17 @@ import gxu.data_structure.chess.util.Resource;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class PrimaryPageWindow extends JFrame implements Res {
+public class PrimaryPageWindow extends JFrame implements Res, Constants {
     private MP3Player.LoopPlay loopPlay;
     private PrimaryPagePanel panel;
     private JLabel imageicon;
 
-    public PrimaryPageWindow(){
+    public PrimaryPageWindow() {
         initPrimaryPage();
 
         MP3Player bgm = new MP3Player(Resource.getStream("game.mp3"));
@@ -61,6 +64,11 @@ public class PrimaryPageWindow extends JFrame implements Res {
             public void mouseExited(MouseEvent e) {
                 jLabelMouseExited(e);
             }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                IndividualGame();//
+            }
         });
         JLabel  jLabel2 = new JLabel();
         jLabel2.setText("双人对战");
@@ -81,7 +89,7 @@ public class PrimaryPageWindow extends JFrame implements Res {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                DoubleGame();
+                DoubleGame();//
             }
         });
 
@@ -126,8 +134,14 @@ public class PrimaryPageWindow extends JFrame implements Res {
         setLocationRelativeTo(null);
     }
 
+    private void IndividualGame() {
+        new ChessWindow(true).setVisible(true);
+
+        dispose();
+    }
+
     private void DoubleGame() {
-        new ChessWindow().setVisible(true);
+        new ChessWindow(false).setVisible(true);
         dispose();
     }
 

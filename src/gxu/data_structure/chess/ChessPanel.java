@@ -35,20 +35,22 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private boolean playing = false; //游戏是否正在进行
     private XqChessBoard chessBoard = new XqChessBoard();
     private XqWalkState walkState = new XqWalkState(chessBoard);
+    private MaxMinTree maxMinTree;
+    private boolean robot;
+
 
     //评估函数
     //private final Evaluation evaluation = new Evaluation(chessBoard);
-    //最大最小树
-    private final MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
+
 
     //资源图片：
     private Point selectPoint; //选中的棋子
 
-    public ChessPanel() {
+    public ChessPanel(boolean robot) {
         super();
         setSize(558, 620);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+        this.robot = robot;
         //添加鼠标事件
         addMouseListener(new MouseAdapter() {
             @Override
@@ -58,7 +60,6 @@ public class ChessPanel extends JPanel implements Constants, Res {
                     int y = floorDiv(e.getY() - y0);
                     if (x >= 0 && x <= 8 && y >= 0 && y <= 9) {
                         System.out.print("选择了坐标为（" + x + "," + y + "）\n");
-                        System.out.println("黑棋子的总价值为：" + maxMinTree.e());
                         onClick(x, y);
 
                     }
@@ -185,6 +186,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
         if (!playing) {
             return;
         }
+
         if (walkState.canSelect(red, x, y)) { //如果可以选中这个棋子的话，则选中
 
             Graphics2D g = resetBackground();
@@ -210,16 +212,37 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 //MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
                 //bgm.play();
                 red = !red;
-            } else {
 
+                //到机器人走棋子
+                if (!red && robot) {
+                    //这里最大最小搜索
+                    maxMinTree = new MaxMinTree(chessBoard);
+                    //System.out.println(maxMinTree.Max_min_tree(1,red));
+                    Move m = maxMinTree.rootSearch(3, red);
+                    System.out.println(m.getFrom() + "\n" + m.getTo());
+                    int fx = m.getFrom().getX(), fy = m.getFrom().getY();
+                    int tox = m.getTo().getX(), toy = m.getTo().getY();
+                    int r_state = chessBoard.getState(fx, fy);
+                    chessBoard.setState(fx, fy, EMPTY);
+                    int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
+                    repaintBoard();
+                    hasWin(r_old);
+                    red = !red;
+                }
+
+            } else {
                 System.out.println("不可走棋:" + move);
             }
         }
+        //System.out.println("黑棋子的总价值为：" + maxMinTree.e());
+        //System.out.println("棋力为："+maxMinTree.Max_min_tree(3,red));
     }
 
     private void hasWin(int state) {
         if (state == redJiang) {
             playing = false;
+
+
             MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
         }
         if (state == blackJiang) {
@@ -231,6 +254,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
             case RED:
                 if (red) {
                     playing = false;
+
                     MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
                 } else {
                     System.out.println("红棋被将军！");
@@ -278,6 +302,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
         red = true;
         chessBoard.clear();
         chessBoard.setDefault();
+
+
         //绘制背景图片
         Graphics2D g = resetBackground();
         drawChessBoard(g);

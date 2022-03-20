@@ -32,8 +32,10 @@ public class ChessWindow extends JFrame implements Constants {
     private JMenu menu2;
     private JMenuItem menuItem3;
     private ChessPanel panel;
+    private boolean robot;
 
-    public ChessWindow() {
+    public ChessWindow(boolean robot) {
+        this.robot = robot;
         initComponents();
 
         //循环播放音乐
@@ -147,7 +149,7 @@ public class ChessWindow extends JFrame implements Constants {
         menuItem6 = new JMenuItem();
         menu2 = new JMenu();
         menuItem3 = new JMenuItem();
-        panel = new ChessPanel();
+        panel = new ChessPanel(robot);
 
         //======== this ========
         setResizable(false);

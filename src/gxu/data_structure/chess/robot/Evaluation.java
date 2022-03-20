@@ -37,7 +37,7 @@ public class Evaluation implements Constants {
                 Value += values(state, i);
             }
         }
-        return Value;
+        return -Value;
     }
 
     //计算每个棋子的价值
