@@ -81,6 +81,9 @@ public class ChessPanel extends JPanel implements Constants, Res {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
+        g.setColor(new Color(220,190,135));
+        g.drawRect(558, 0, 186, 620);
+        g.fillRect(558, 0, 186, 620);
     }
 
     //把背景图片画在棋盘上
@@ -88,6 +91,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
         image = new BufferedImage(imageChessBoard.getWidth(), imageChessBoard.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g = image.createGraphics();
         g.drawImage(imageChessBoard, 0, 0, null);
+
+
         return g;
     }
 
@@ -221,6 +226,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
         if (state == redJiang) {
             playing = false;
             MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
+
+
         }
         if (state == blackJiang) {
             playing = false;
@@ -280,6 +287,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
         chessBoard.setDefault();
         //绘制背景图片
         Graphics2D g = resetBackground();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         drawChessBoard(g);
     }
 
