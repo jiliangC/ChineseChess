@@ -23,6 +23,7 @@ public interface Res {
     BufferedImage blackShiImg = Resource.getImage("黑士.gif");
     BufferedImage blackXiangImg = Resource.getImage("黑象.gif");
     BufferedImage blackZuImg = Resource.getImage("黑卒.gif");
+    BufferedImage shootimage = Resource.getImage("shoot.gif");
 
 
     //点击图片
