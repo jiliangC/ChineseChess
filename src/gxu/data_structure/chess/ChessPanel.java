@@ -213,7 +213,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 int old = chessBoard.setState(x, y, state); //更新棋盘上的状态
                 repaintBoard();
                 selectPoint = null;
-                hasWin(old);
+                //hasWin(old);
                 //MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
                 //bgm.play();
                 red = !red;

@@ -51,7 +51,7 @@ public interface Constants {
 
     // 炮
     int Pao = 45;
-    int centerPao = 50;
-    int underPao = 50;
+    int centerPao = 47;
+    int underPao = 47;
 
 }

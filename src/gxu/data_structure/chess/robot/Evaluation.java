@@ -28,7 +28,9 @@ public class Evaluation implements Constants {
 
 
     public int eva() {
+        //黑
         int B_Value = 0;
+        //红
         int R_Value = 0;
         //评估黑色的棋子的棋力价值；
         int[] map = xqChessBoard.getUcpcSquares();
@@ -36,7 +38,7 @@ public class Evaluation implements Constants {
             int state = map[i];
             if (isBlack(state)) {
                 B_Value += values(state, i);
-            } else {
+            } else if (isRed(state)) {
                 R_Value += values(state, i);
             }
         }
@@ -47,24 +49,32 @@ public class Evaluation implements Constants {
     private int values(int state, int position) {
         int v = 0;
         switch (state) {
-            case blackJiang -> v = Jiang;
-            case blackChe -> v = Che;
-            case blackMa -> v = Ma(position);
-            case blackPao -> v = Pao(position);
-            case blackShi -> v = Shi;
-            case blackXiang -> v = Xiang;
-            case blackZu -> v = Bing(position);
+            case blackJiang, redJiang -> v = Jiang;
+            case blackChe, redChe -> v = Che;
+            case blackMa, redMa -> v = Ma(position);
+            case blackPao, redPao -> v = Pao(position, state);
+            case blackShi, redShi -> v = Shi;
+            case blackXiang, redXiang -> v = Xiang;
+            case blackZu, redZu -> v = Bing(position, state);
         }
         return v;
     }
 
     // 兵
-    private int Bing(int position) {
+    private int Bing(int position, int state) {
         int x = pointForX(position), y = pointForY(position);
-        if (y < 5) return uncrossBing; //未过河兵
-        else if (x == 4 && y == 8) return inNineBing; //窝心兵
-        else if (y < 9) return crossBing; //过河兵
-        else return underBing; //底线
+        if (state == blackZu) {
+            if (y < 5) return uncrossBing; //未过河兵
+            else if (x == 4 && y == 8) return inNineBing; //窝心兵
+            else if (y < 9) return crossBing; //过河兵
+            else return underBing; //底线
+        } else {
+            if (y > 4) return uncrossBing;
+            else if (x == 4 && y == 1) return inNineBing;
+            else if (y >= 0) return crossBing;
+            else return uncrossBing;
+        }
+
     }
 
     //马
@@ -77,10 +87,10 @@ public class Evaluation implements Constants {
     }
 
     //炮
-    private int Pao(int position) {
+    private int Pao(int position, int state) {
         int x = pointForX(position), y = pointForY(position);
-        if (y == 9) return underPao;
-        else if (x == 4) return centerPao;
+        if ((y == 9 && state == blackPao) || (y == 0 && state == redPao)) return underPao; //沉底炮
+        else if (x == 4) return centerPao; //中炮
         else return Pao;
     }
 }
