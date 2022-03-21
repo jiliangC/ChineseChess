@@ -26,71 +26,79 @@ public class Evaluation implements Constants {
         return (state & 16) != 0;
     }
 
+    private static int R_index(int x, int y) {
+        return x * 10 + 9 - y;
+    }
+
+    private static int B_index(int x, int y) {
+        return x * 10 + y;
+    }
+
 
     public int eva() {
         //黑
-        int B_Value = 0;
+        int B_Value = 0, B_Position = 0, B_sum;
         //红
-        int R_Value = 0;
-        //评估黑色的棋子的棋力价值；
+        int R_Value = 0, R_Position = 0, R_sum;
+
         int[] map = xqChessBoard.getUcpcSquares();
         for (int i = 0; i < 255; i++) {
             int state = map[i];
             if (isBlack(state)) {
-                B_Value += values(state, i);
+                B_Value += values(state); //黑子价值
+                B_Position += position(state, i); //黑子位置价值
             } else if (isRed(state)) {
-                R_Value += values(state, i);
+                R_Value += values(state); //红字价值
+                R_Position += position(state, i); //红字位置价值
             }
         }
-        return (R_Value - B_Value);
+        R_sum = R_Value + R_Position * 3;
+        B_sum = B_Value + B_Position * 3;
+        return R_sum - B_sum;
+        //return (R_Value - B_Value);
     }
 
     //计算每个棋子的价值
-    private int values(int state, int position) {
+    private int values(int state) {
         int v = 0;
         switch (state) {
             case blackJiang, redJiang -> v = Jiang;
             case blackChe, redChe -> v = Che;
-            case blackMa, redMa -> v = Ma(position);
-            case blackPao, redPao -> v = Pao(position, state);
+            case blackMa, redMa -> v = Ma;
+            case blackPao, redPao -> v = Pao;
             case blackShi, redShi -> v = Shi;
             case blackXiang, redXiang -> v = Xiang;
-            case blackZu, redZu -> v = Bing(position, state);
+            case blackZu, redZu -> v = Bing;
         }
         return v;
     }
 
-    // 兵
-    private int Bing(int position, int state) {
-        int x = pointForX(position), y = pointForY(position);
-        if (state == blackZu) {
-            if (y < 5) return uncrossBing; //未过河兵
-            else if (x == 4 && y == 8) return inNineBing; //窝心兵
-            else if (y < 9) return crossBing; //过河兵
-            else return underBing; //底线
-        } else {
-            if (y > 4) return uncrossBing;
-            else if (x == 4 && y == 1) return inNineBing;
-            else if (y >= 0) return crossBing;
-            else return uncrossBing;
+    private int position(int state, int p) {
+        int x = pointForX(p), y = pointForY(p);
+        int index = isBlack(state) ? B_index(x, y) : R_index(x, y);
+        switch (state) {
+            case redJiang, blackJiang -> {
+                return PositionValues[1][index];
+            }
+            case redShi, blackShi -> {
+                return PositionValues[2][index];
+            }
+            case redXiang, blackXiang -> {
+                return PositionValues[3][index];
+            }
+            case redMa, blackMa -> {
+                return PositionValues[4][index];
+            }
+            case redChe, blackChe -> {
+                return PositionValues[5][index];
+            }
+            case redPao, blackPao -> {
+                return PositionValues[6][index];
+            }
+            case redZu, blackZu -> {
+                return PositionValues[7][index];
+            }
         }
-
-    }
-
-    //马
-    private int Ma(int position) {
-        int x = pointForX(position), y = pointForY(position);
-        if ((x == 0 && y == 0) || (x == 0 && y == 9) || (x == 8 && y == 0) || (x == 8 && y == 9)) return cornerMa; //角落马
-        else if (x == 0 || x == 8) return boundaryMa; //边马
-        else if ((x == 4 && y == 1) || (x == 4 && y == 8)) return inNineMa; //窝心马
-        else return Ma;
-    }
-
-    //炮
-    private int Pao(int position, int state) {
-        int x = pointForX(position), y = pointForY(position);
-        if ((y == 9 && state == blackPao) || (y == 0 && state == redPao)) return underPao; //沉底炮
-        else if (x == 4) return centerPao; //中炮
-        else return Pao;
+        return 0;
     }
 }

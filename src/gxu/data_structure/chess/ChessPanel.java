@@ -6,9 +6,7 @@ import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.Point;
 import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.robot.MaxMinTree;
-import gxu.data_structure.chess.util.GameSave;
-import gxu.data_structure.chess.util.MyOptionPane;
-import gxu.data_structure.chess.util.Res;
+import gxu.data_structure.chess.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +35,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private XqWalkState walkState = new XqWalkState(chessBoard);
     private MaxMinTree maxMinTree;
     private boolean robot;
+    private MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
 
 
     //评估函数
@@ -213,13 +212,13 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 int old = chessBoard.setState(x, y, state); //更新棋盘上的状态
                 repaintBoard();
                 selectPoint = null;
-                //hasWin(old);
-                //MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
+                hasWin(old);
+
                 //bgm.play();
                 red = !red;
 
                 //到机器人走棋子
-                if (!red && robot) {
+                if (!red && robot && playing) {
                     //这里最大最小搜索
                     maxMinTree = new MaxMinTree(chessBoard);
                     //System.out.println(maxMinTree.Max_min_tree(1,red));
@@ -264,6 +263,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
 
                     MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
                 } else {
+                    MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红棋被将军", "提示");
                     System.out.println("红棋被将军！");
                 }
                 break;
@@ -273,6 +273,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
                     MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红胜！", "提示");
                 } else {
                     System.out.println("黑棋被将军！");
+                    MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑棋被将军！", "提示");
                 }
                 break;
             case RED_KILL:

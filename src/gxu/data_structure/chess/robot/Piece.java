@@ -63,7 +63,6 @@ public class Piece implements Constants {
     }
 
     public Walker getWalker() {
-        System.out.println(walker);
         return walker;
     }
 }
