@@ -3,6 +3,7 @@ package gxu.data_structure.chess.util;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -12,10 +13,17 @@ import java.io.InputStream;
 public class Resource {
 
     public static InputStream getStream(String name) {
-        InputStream inputStream = Resource.class.getResourceAsStream("/" + name);
-        if (inputStream == null) {
-            throw new RuntimeException("找不到资源:" + name);
+        String path = "res/" + name;
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(path);
+        } catch (Exception e) {
+            throw new RuntimeException("找不到资源" + name);
         }
+//        InputStream inputStream = Resource.class.getResourceAsStream("/" + name);
+//        if (inputStream == null) {
+//            throw new RuntimeException("找不到资源:" + name);
+//        }
         return inputStream;
     }
 

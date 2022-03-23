@@ -6,6 +6,7 @@ public interface Res {
 
     //声音资源:
     MP3Player jjPlayer = new MP3Player(Resource.getStream("ding.mp3"));
+    MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
 
     //棋子资源
     BufferedImage imageChessBoard = Resource.getImage("main.gif");

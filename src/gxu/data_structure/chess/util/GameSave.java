@@ -2,13 +2,11 @@ package gxu.data_structure.chess.util;
 
 import gxu.data_structure.chess.core.ChessBoard;
 
-import java.io.Serializable;
 
 /**
  * 象棋残局
  */
-public class GameSave implements Serializable {
-    private static final long serialVersionUID = 6553095750557437058L;
+public class GameSave {
     private ChessBoard chessBoard;
     private boolean red;
     private boolean playing;

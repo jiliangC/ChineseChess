@@ -6,7 +6,9 @@ import gxu.data_structure.chess.core.Point;
 import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.robot.MaxMinTree;
 import gxu.data_structure.chess.robot.Piece;
-import gxu.data_structure.chess.util.*;
+import gxu.data_structure.chess.util.GameSave;
+import gxu.data_structure.chess.util.MyOptionPane;
+import gxu.data_structure.chess.util.Res;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +38,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private XqWalkState walkState = new XqWalkState(chessBoard);
     private MaxMinTree maxMinTree;
     private boolean robot;
-    private MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
+
 
 
     private Point selectPoint; //选中的棋子
@@ -215,8 +217,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 repaintBoard();
                 selectPoint = null;
                 hasWin(old);
-
-                //bgm.play();
+                bgm.play();
                 red = !red;
 
                 //到机器人走棋子
