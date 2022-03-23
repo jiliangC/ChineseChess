@@ -35,10 +35,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private boolean red = true; //默认是红先手
     private boolean playing = false; //游戏是否正在进行
     private XqChessBoard chessBoard = new XqChessBoard();
-    private XqWalkState walkState = new XqWalkState(chessBoard);
-    private MaxMinTree maxMinTree;
-    private boolean robot;
-
+    private final XqWalkState walkState = new XqWalkState(chessBoard);
+    private final boolean robot;
 
 
     private Point selectPoint; //选中的棋子
@@ -224,7 +222,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 //到机器人走棋子
                 if (!red && robot && playing) {
                     //这里最大最小搜索
-                    maxMinTree = new MaxMinTree(chessBoard);
+                    MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
                     //System.out.println(maxMinTree.Max_min_tree(1,red));
                     Move m = maxMinTree.rootSearch(3, red);
                     System.out.println(m.getFrom() + "\n" + m.getTo());
@@ -242,8 +240,6 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 System.out.println("不可走棋:" + move);
             }
         }
-        //System.out.println("黑棋子的总价值为：" + maxMinTree.e());
-        //System.out.println("棋力为："+maxMinTree.Max_min_tree(3,red));
     }
 
     //需要修改
