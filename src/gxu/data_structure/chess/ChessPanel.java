@@ -217,7 +217,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 repaintBoard();
                 selectPoint = null;
                 hasWin(old);
-                bgm.play();
+                //不知道为什么加了会卡顿
+                //bgm.play();
                 red = !red;
 
                 //到机器人走棋子
