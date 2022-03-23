@@ -84,6 +84,12 @@ public class ChessPanel extends JPanel implements Constants, Res {
         g.setColor(new Color(220,190,135));
         g.drawRect(558, 0, 186, 620);
         g.fillRect(558, 0, 186, 620);
+        if (red){
+            g.drawImage(shootimage, 594, 350, null);
+        }
+        else{
+            g.drawImage(shootimage, 594, 240, null);
+        }
     }
 
     //把背景图片画在棋盘上
