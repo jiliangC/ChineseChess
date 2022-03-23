@@ -1,9 +1,9 @@
 package gxu.data_structure.chess;
 
-import gxu.data_structure.chess.core.ChessBoardItem;
 import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.WalkState;
 import gxu.data_structure.chess.core.WinEnum;
+import gxu.data_structure.chess.robot.Piece;
 import gxu.data_structure.chess.walk.*;
 
 import java.util.ArrayList;
@@ -162,28 +162,27 @@ public class XqWalkState implements WalkState, Constants {
         if (isJiangJun(!red, enemyX, enemyY)) { //判断对方是否被将军
             //对方被将军的情况下，需要判断对方是否被将死.为对方生成所有走法，如果每一步都将军，说明将死.
             boolean die = true; //是否将死
-            for (ChessBoardItem item : chessBoard) {
 
-                System.out.println("这里：" + item.getX() + " " + item.getY() + " " + item.getState());
-
-
-                if (red ? isBlack(item.getState()) : isRed(item.getState())) { //找到自己的棋子
-                    List<Move> moveList = getAllMove(!red, item.getX(), item.getY());
-                    for (Move move : moveList) {
-                        //走这样一步
-                        int fromState = chessBoard.getState(move.getFrom().getX(), move.getFrom().getY());
-                        int toState = chessBoard.setState(move.getTo().getX(), move.getTo().getY(), fromState);
-                        if (!isJiangJun(!red, enemyX, enemyY)) { //判断是否将军，如果没有将军 说明没有被将死
-                            die = false;
-                        }
-                        //记得撤回刚才走的这一步
-                        chessBoard.setState(move.getFrom().getX(), move.getFrom().getY(), fromState);
-                        chessBoard.setState(move.getTo().getX(), move.getTo().getY(), toState);
-                        if (!die) break;
-                    }
-                    if (!die) break;
+            //moves 是对方所有棋子可走的所有位置
+            ArrayList<Piece> pieceArrayList = new ArrayList<>();
+            ArrayList<Move> moves = new ArrayList<>();
+            setPieceArrayList(!red, pieceArrayList);
+            setMoves(!red, pieceArrayList, moves);
+            for (Move move : moves) {
+                //走这样一步
+                int fromState = chessBoard.getState(move.getFrom().getX(), move.getFrom().getY());
+                int toState = chessBoard.setState(move.getTo().getX(), move.getTo().getY(), fromState);
+                chessBoard.setState(move.getFrom().getX(), move.getFrom().getY(), EMPTY);
+                if (!isJiangJun(!red, enemyX, enemyY)) { //判断是否将军，如果没有将军 说明没有被将死
+                    die = false;
+                    System.out.println("解除将军");
                 }
+                //记得撤回刚才走的这一步
+                chessBoard.setState(move.getFrom().getX(), move.getFrom().getY(), fromState);
+                chessBoard.setState(move.getTo().getX(), move.getTo().getY(), toState);
+                if (!die) break;
             }
+
             if (die) {
                 return red ? WinEnum.BLACK_KILL : WinEnum.RED_KILL;
             } else {
@@ -191,9 +190,12 @@ public class XqWalkState implements WalkState, Constants {
             }
         }
         //如果所有人只剩下象士帅，则和棋
+        ArrayList<Piece> pieceArrayList = new ArrayList<>();
+        setPieceArrayList(!red, pieceArrayList);
         boolean draw = true;
-        for (ChessBoardItem chessBoardItem : chessBoard) {
-            int state = chessBoardItem.getState();
+
+        for (Piece i : pieceArrayList) {
+            int state = i.getState();
             if (state != EMPTY && state != redXiang && state != blackXiang && state != redShi && state != blackShi && state != blackJiang && state != redJiang) {
                 draw = false;
                 break;
@@ -212,7 +214,7 @@ public class XqWalkState implements WalkState, Constants {
      * (4) 假设帅(将)是过河的兵(卒)，判断它是否能吃到对方的卒(兵)。
      */
     private boolean isJiangJun(boolean red, int x, int y) {
-
+        //(x,y)光头的位置
         Walker cheWalker = walkerMap.get(redChe); //假设帅(将)是车
         List<Move> cheMoves = cheWalker.getAllMove(red, x, y);
         for (Move cheMove : cheMoves) {
@@ -280,6 +282,31 @@ public class XqWalkState implements WalkState, Constants {
         @Override
         public boolean isCrossRiver(int x, int y, boolean red) {
             return true;
+        }
+    }
+
+    //获取当前方可走的所有棋子
+    public void setPieceArrayList(boolean red, ArrayList<Piece> pieceArrayList) {
+        for (int i = 0; i < 255; i++) {
+            int state = chessBoard.getState(i);
+            //红方
+            if (red && XqWalkState.isRed(state)) {
+                pieceArrayList.add(new Piece(state, i, this));
+            }
+            //黑方
+            if (!red && XqWalkState.isBlack(state)) {
+                pieceArrayList.add(new Piece(state, i, this));
+            }
+        }
+    }
+
+    //获取点的所有走法
+    public void setMoves(boolean red, ArrayList<Piece> pieceArrayList, ArrayList<Move> moves) {
+        for (Piece piece : pieceArrayList) {
+            int fromX = piece.ForX();
+            int fromY = piece.ForY();
+            List<Move> list = piece.getWalker().getAllMove(red, fromX, fromY);
+            moves.addAll(list);
         }
     }
 

@@ -1,11 +1,11 @@
 package gxu.data_structure.chess;
 
 
-import gxu.data_structure.chess.core.ChessBoardItem;
 import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.Point;
 import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.robot.MaxMinTree;
+import gxu.data_structure.chess.robot.Piece;
 import gxu.data_structure.chess.util.*;
 
 import javax.swing.*;
@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,11 +39,6 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private MP3Player bgm = new MP3Player(Resource.getStream("go.mp3"));
 
 
-    //评估函数
-    //private final Evaluation evaluation = new Evaluation(chessBoard);
-
-
-    //资源图片：
     private Point selectPoint; //选中的棋子
 
     public ChessPanel(boolean robot) {
@@ -248,6 +244,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
         //System.out.println("棋力为："+maxMinTree.Max_min_tree(3,red));
     }
 
+    //需要修改
     private void hasWin(int state) {
         if (state == redJiang) {
             playing = false;
@@ -305,8 +302,11 @@ public class ChessPanel extends JPanel implements Constants, Res {
     }
 
     private void drawChessBoard(Graphics2D g) {
-        for (ChessBoardItem chessBoardItem : chessBoard) {
-            drawChess(g, chessBoardItem.getState(), chessBoardItem.getX(), chessBoardItem.getY());
+        ArrayList<Piece> pieceList = new ArrayList<>();
+        walkState.setPieceArrayList(red, pieceList);
+        walkState.setPieceArrayList(!red, pieceList);
+        for (Piece p : pieceList) {
+            drawChess(g, p.getState(), p.ForX(), p.ForY());
         }
     }
 

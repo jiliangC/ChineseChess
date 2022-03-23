@@ -3,7 +3,7 @@ package gxu.data_structure.chess.core;
 /**
  * 表示整个棋盘信息的接口
  */
-public interface ChessBoard extends Iterable<ChessBoardItem> {
+public interface ChessBoard {
     //获取最大横坐标、纵坐标 （ 0 <= x <maxX, 0<= y < maxY )
     int getMaxX();
 

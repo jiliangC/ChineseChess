@@ -1,12 +1,9 @@
 package gxu.data_structure.chess;
 
 import gxu.data_structure.chess.core.ChessBoard;
-import gxu.data_structure.chess.core.ChessBoardItem;
 import gxu.data_structure.chess.core.Point;
 
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 
 public class XqChessBoard implements ChessBoard, Constants {
@@ -145,57 +142,9 @@ public class XqChessBoard implements ChessBoard, Constants {
         return 16 * (y + 3) + x + 3;
     }
 
-
     //返回棋盘数组
     public int[] getUcpcSquares() {
         return ucpcSquares;
-    }
-
-
-    //这里
-    @Override
-    public Iterator<ChessBoardItem> iterator() {
-        return new Itr();
-    }
-
-    private class Itr implements Iterator<ChessBoardItem> {
-
-        private boolean f = false;
-        private int x = 0, y = -1;
-
-        @Override
-        public boolean hasNext() {
-            y++;
-            if (y >= getMaxY()) {
-                y = 0;
-                x++;
-            }
-            return f = x < getMaxX() && y < getMaxY();
-        }
-
-        @Override
-        public ChessBoardItem next() {
-            if (!f) {
-                throw new NoSuchElementException();
-            }
-            f = false;
-            return new ChessBoardItem(x, y) {
-                @Override
-                public int getState() {
-                    return XqChessBoard.this.getState(x, y);
-                }
-
-                @Override
-                public void setState(int state) {
-                    XqChessBoard.this.setState(x, y, state);
-                }
-            };
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
     }
 
 }
