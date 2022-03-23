@@ -248,6 +248,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
         //System.out.println("棋力为："+maxMinTree.Max_min_tree(3,red));
     }
 
+    //需要修改
     private void hasWin(int state) {
         if (state == redJiang) {
             playing = false;

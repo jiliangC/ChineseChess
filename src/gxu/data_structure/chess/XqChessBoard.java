@@ -198,4 +198,5 @@ public class XqChessBoard implements ChessBoard, Constants {
         }
     }
 
+
 }

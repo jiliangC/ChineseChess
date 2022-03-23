@@ -16,6 +16,7 @@ public class MaxMinTree {
     private final Evaluation evaluation;
 
     public MaxMinTree(XqChessBoard xqChessBoard) {
+        //模拟专用棋盘
         ChessBoard.cloneSquares(xqChessBoard.getUcpcSquares());
         ChessBoard.setJiang(xqChessBoard.getJiang());
         ChessBoard.setShuai(xqChessBoard.getShuai());
@@ -54,13 +55,12 @@ public class MaxMinTree {
             return evaluation.eva();
         }
 
-        //问题所在
         ArrayList<Piece> pieceArrayList = new ArrayList<>();
         ArrayList<Move> moves = new ArrayList<>();
 
         //得到所有棋子的走法
-        setPieceArrayList(red, pieceArrayList);
-        setMoves(red, pieceArrayList, moves);
+        WalkState.setPieceArrayList(red, pieceArrayList);
+        WalkState.setMoves(red, pieceArrayList, moves);
 
 
         int eva = -anInt;
@@ -88,9 +88,8 @@ public class MaxMinTree {
         ArrayList<Move> moves = new ArrayList<>();
         Move mm = null;
 
-        //得到所有棋子的走法
-        setPieceArrayList(red, pieceArrayList);
-        setMoves(red, pieceArrayList, moves);
+        WalkState.setPieceArrayList(red, pieceArrayList);
+        WalkState.setMoves(red, pieceArrayList, moves);
 
         for (Move i : moves) {
             //走这一步
