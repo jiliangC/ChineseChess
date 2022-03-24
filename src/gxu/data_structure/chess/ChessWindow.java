@@ -160,8 +160,10 @@ public class ChessWindow extends JFrame implements Constants, Res {
         contentPane.setLayout(null);
 
 
+
         //======== menuBar1 ========
         {
+            menuBar1.setBackground(new Color(220,190,135));
             //======== menu_file ========
             {
                 menu_file.setText("文件");
