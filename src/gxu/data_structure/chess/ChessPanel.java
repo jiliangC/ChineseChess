@@ -7,6 +7,7 @@ import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.robot.Alpha_Beta;
 import gxu.data_structure.chess.robot.Piece;
 import gxu.data_structure.chess.util.GameSave;
+import gxu.data_structure.chess.util.MP3Player;
 import gxu.data_structure.chess.util.MyOptionPane;
 import gxu.data_structure.chess.util.Res;
 
@@ -198,7 +199,6 @@ public class ChessPanel extends JPanel implements Constants, Res {
         }
 
         if (walkState.canSelect(red, x, y)) { //如果可以选中这个棋子的话，则选中
-
             Graphics2D g = resetBackground();
             drawChessBoard(g);
             drawSelect(g, x, y); //绘制选择
@@ -206,6 +206,9 @@ public class ChessPanel extends JPanel implements Constants, Res {
             g.dispose();
             repaint();
             selectPoint = new Point(x, y);
+
+            music(t_select);
+
         } else if (selectPoint != null) {    //走棋了
             //原来点的棋子的坐标
             int tx = selectPoint.getX();
@@ -219,8 +222,12 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 repaintBoard();
                 selectPoint = null;
                 hasWin(old);
-                //不知道为什么加了会卡顿
-                //bgm.play();
+
+                if (old == EMPTY)
+                    music(t_click);
+                else
+                    music(t_eat);
+
                 red = !red;
 
                 //到机器人走棋子
@@ -240,6 +247,11 @@ public class ChessPanel extends JPanel implements Constants, Res {
                             int r_state = chessBoard.getState(fx, fy);
                             chessBoard.setState(fx, fy, EMPTY);
                             int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
+
+                            if (r_old == EMPTY)
+                                music(t_click);
+                            else
+                                music(t_eat);
 
                             Graphics2D g = resetBackground();
                             drawChessBoard(g);
@@ -261,7 +273,27 @@ public class ChessPanel extends JPanel implements Constants, Res {
         }
     }
 
-    //需要修改
+    private void music(int type) {
+        MP3Player mp3 = null;
+        switch (type) {
+            case t_select -> mp3 = select_mp3;
+            case t_click -> mp3 = click_mp3;
+            case t_defeat -> mp3 = defeat_mp3;
+            case t_win -> mp3 = win_mp3;
+            case t_jiangjun -> mp3 = jiangjun_mp3;
+            case t_eat -> mp3 = eat_mp3;
+        }
+        MP3Player finalMp = mp3;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                finalMp.play();
+            }
+        }).start();
+
+    }
+
+
     private void hasWin(int state) {
         if (state == redJiang) {
             playing = false;

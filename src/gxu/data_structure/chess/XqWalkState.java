@@ -213,6 +213,9 @@ public class XqWalkState implements WalkState, Constants {
      * (3) 假设帅(将)是马，判断它是否能吃到对方的马，需要注意的是，帅(将)此时使用的马腿不同
      * (4) 假设帅(将)是过河的兵(卒)，判断它是否能吃到对方的卒(兵)。
      */
+
+    //需要重写
+
     private boolean isJiangJun(boolean red, int x, int y) {
         //(x,y)光头的位置
         Walker cheWalker = walkerMap.get(redChe); //假设帅(将)是车
@@ -252,6 +255,8 @@ public class XqWalkState implements WalkState, Constants {
     }
 
     //与马走法对立的走法，也就是判断马能否吃到将/帅
+
+    //bug
     private static class JiangJunMaWalker extends SlashWalker {
         JiangJunMaWalker(WalkState walkState) {
             super(
