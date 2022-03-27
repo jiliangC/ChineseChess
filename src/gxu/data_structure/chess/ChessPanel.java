@@ -192,6 +192,10 @@ public class ChessPanel extends JPanel implements Constants, Res {
         if (!playing) {
             return;
         }
+        //如果是人机，不允许选择黑方
+        if (robot && !red) {
+            return;
+        }
 
         if (walkState.canSelect(red, x, y)) { //如果可以选中这个棋子的话，则选中
 
@@ -230,15 +234,20 @@ public class ChessPanel extends JPanel implements Constants, Res {
                             //Alpha_Beta搜索
                             Alpha_Beta alpha_beta = new Alpha_Beta(chessBoard);
                             Move m = alpha_beta.rootSearch(4, -10000000, 10000000, red);
-
-
                             System.out.println(m.getFrom() + "\n" + m.getTo());
                             int fx = m.getFrom().getX(), fy = m.getFrom().getY();
                             int tox = m.getTo().getX(), toy = m.getTo().getY();
                             int r_state = chessBoard.getState(fx, fy);
                             chessBoard.setState(fx, fy, EMPTY);
                             int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
-                            repaintBoard();
+
+                            Graphics2D g = resetBackground();
+                            drawChessBoard(g);
+                            drawSelect(g, fx, fy); //绘制选择
+                            drawSelect(g, tox, toy); //绘制选择
+                            g.dispose();
+                            repaint();
+                            //repaintBoard();
                             hasWin(r_old);
                             red = !red;
                         }
