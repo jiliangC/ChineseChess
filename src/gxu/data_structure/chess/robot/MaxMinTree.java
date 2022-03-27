@@ -6,7 +6,6 @@ import gxu.data_structure.chess.XqWalkState;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MaxMinTree {
     private final int anInt = 1000000;
@@ -23,31 +22,6 @@ public class MaxMinTree {
         WalkState = new XqWalkState(ChessBoard);
         evaluation = new Evaluation(ChessBoard);
         //System.out.println(Arrays.toString(ChessBoard.getUcpcSquares()));
-    }
-
-    //获取当前方可走的所有棋子
-    private void setPieceArrayList(boolean red, ArrayList<Piece> pieceArrayList) {
-        for (int i = 0; i < 255; i++) {
-            int state = ChessBoard.getState(i);
-            //红方
-            if (red && XqWalkState.isRed(state)) {
-                pieceArrayList.add(new Piece(state, i, WalkState));
-            }
-            //黑方
-            if (!red && XqWalkState.isBlack(state)) {
-                pieceArrayList.add(new Piece(state, i, WalkState));
-            }
-        }
-
-    }
-
-    private void setMoves(boolean red, ArrayList<Piece> pieceArrayList, ArrayList<Move> moves) {
-        for (Piece piece : pieceArrayList) {
-            int fromX = piece.ForX();
-            int fromY = piece.ForY();
-            List<Move> list = piece.getWalker().getAllMove(red, fromX, fromY);
-            moves.addAll(list);
-        }
     }
 
     public int Max_min_tree(int deep, boolean red) {
