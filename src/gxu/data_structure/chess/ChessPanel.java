@@ -220,25 +220,31 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 red = !red;
 
                 //到机器人走棋子
-                if (!red && robot && playing) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!red && robot && playing) {
 //                    这里最大最小搜索
 //                    MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
 //                    Move m = maxMinTree.rootSearch(3, red);
-                    //Alpha_Beta搜索
-                    Alpha_Beta alpha_beta = new Alpha_Beta(chessBoard);
-                    Move m = alpha_beta.rootSearch(4, -10000000, 10000000, red);
+                            //Alpha_Beta搜索
+                            Alpha_Beta alpha_beta = new Alpha_Beta(chessBoard);
+                            Move m = alpha_beta.rootSearch(4, -10000000, 10000000, red);
 
 
-                    System.out.println(m.getFrom() + "\n" + m.getTo());
-                    int fx = m.getFrom().getX(), fy = m.getFrom().getY();
-                    int tox = m.getTo().getX(), toy = m.getTo().getY();
-                    int r_state = chessBoard.getState(fx, fy);
-                    chessBoard.setState(fx, fy, EMPTY);
-                    int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
-                    repaintBoard();
-                    hasWin(r_old);
-                    red = !red;
-                }
+                            System.out.println(m.getFrom() + "\n" + m.getTo());
+                            int fx = m.getFrom().getX(), fy = m.getFrom().getY();
+                            int tox = m.getTo().getX(), toy = m.getTo().getY();
+                            int r_state = chessBoard.getState(fx, fy);
+                            chessBoard.setState(fx, fy, EMPTY);
+                            int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
+                            repaintBoard();
+                            hasWin(r_old);
+                            red = !red;
+                        }
+                    }
+                }).start();
+
 
             } else {
                 System.out.println("不可走棋:" + move);

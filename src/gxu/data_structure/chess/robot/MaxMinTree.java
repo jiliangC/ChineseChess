@@ -20,7 +20,7 @@ public class MaxMinTree {
         ChessBoard.setJiang(xqChessBoard.getJiang());
         ChessBoard.setShuai(xqChessBoard.getShuai());
         WalkState = new XqWalkState(ChessBoard);
-        evaluation = new Evaluation(ChessBoard);
+        evaluation = new Evaluation(WalkState);
         //System.out.println(Arrays.toString(ChessBoard.getUcpcSquares()));
     }
 

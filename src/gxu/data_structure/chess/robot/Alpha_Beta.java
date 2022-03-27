@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 
 public class Alpha_Beta {
-    private final int anInt = 1000000;
     private final XqChessBoard ChessBoard = new XqChessBoard();
     private final XqWalkState WalkState;
     private final Evaluation evaluation;
@@ -21,7 +20,7 @@ public class Alpha_Beta {
         ChessBoard.setJiang(xqChessBoard.getJiang());
         ChessBoard.setShuai(xqChessBoard.getShuai());
         WalkState = new XqWalkState(ChessBoard);
-        evaluation = new Evaluation(ChessBoard);
+        evaluation = new Evaluation(WalkState);
     }
 
     int AlphaBeta(int deep, int a, int b, boolean red) {

@@ -31,15 +31,30 @@ public interface Constants {
     int riverYb = 4;
     int riverYR = 5;
 
+    // 棋子价值系数
+    int K_Value = 1;
+
     // 棋子价值
-    int Jiang = 100000;
-    int Che = 900;
+    int Jiang = 65536;
+    int Che = 950;
     int Shi = 200;
     int Xiang = 200;
-    int Bing = 100;
-    int Ma = 400;
+    int Bing = 130;
+    int Ma = 450;
     int Pao = 450;
 
+    // 棋子灵活度系数
+    int K_Flexible = 1;
+    // 棋子的灵活度 比例系数
+    int k_che = 7;
+    int k_ma = 13;
+    int k_pao = 7;
+    int k_xiang = 1;
+    int k_shi = 1;
+    int k_bing = 2;
+
+    //棋子位置价值的比例系数
+    int K_Position = 1;
     //棋子位置价值
     int[][] PositionValues = new int[][]{
             {

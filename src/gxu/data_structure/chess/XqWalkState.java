@@ -287,17 +287,33 @@ public class XqWalkState implements WalkState, Constants {
 
     //获取当前方可走的所有棋子
     public void setPieceArrayList(boolean red, ArrayList<Piece> pieceArrayList) {
-        for (int i = 0; i < 255; i++) {
-            int state = chessBoard.getState(i);
-            //红方
-            if (red && XqWalkState.isRed(state)) {
-                pieceArrayList.add(new Piece(state, i, this));
-            }
-            //黑方
-            if (!red && XqWalkState.isBlack(state)) {
-                pieceArrayList.add(new Piece(state, i, this));
+
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 10; y++) {
+                int i = 16 * (y + 3) + x + 3;
+                int state = chessBoard.getState(i);
+                //红方
+                if (red && XqWalkState.isRed(state)) {
+                    pieceArrayList.add(new Piece(state, i, this));
+                }
+                //黑方
+                if (!red && XqWalkState.isBlack(state)) {
+                    pieceArrayList.add(new Piece(state, i, this));
+                }
             }
         }
+
+//        for (int i = 0; i < 255; i++) {
+//            int state = chessBoard.getState(i);
+//            //红方
+//            if (red && XqWalkState.isRed(state)) {
+//                pieceArrayList.add(new Piece(state, i, this));
+//            }
+//            //黑方
+//            if (!red && XqWalkState.isBlack(state)) {
+//                pieceArrayList.add(new Piece(state, i, this));
+//            }
+//        }
     }
 
     //获取点的所有走法
