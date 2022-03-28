@@ -20,11 +20,13 @@ public class RedZuWalker extends AbstractWalker {
     public List<Move> getAllMove(boolean red, int x, int y) {
         List<Move> moveList = new ArrayList<>();
         if (isCrossRiver(x, y, red)) {
-            if (y > 0) moveList.add(new Move(x, y, x, y - 1));
-            if (x > 0) moveList.add(new Move(x, y, x - 1, y));
-            if (x < walkState.getChessBoard().getMaxX() - 1) moveList.add(new Move(x, y, x + 1, y));
+            if (y > 0 && !isSelf(x, y - 1, red)) moveList.add(new Move(x, y, x, y - 1));
+            if (x > 0 && !isSelf(x - 1, y, red)) moveList.add(new Move(x, y, x - 1, y));
+            if (x < walkState.getChessBoard().getMaxX() - 1 && !isSelf(x + 1, y, red))
+                moveList.add(new Move(x, y, x + 1, y));
         } else if (y > 0) {
-            moveList.add(new Move(x, y, x, y - 1));
+            if (!isSelf(x, y - 1, red))
+                moveList.add(new Move(x, y, x, y - 1));
         }
         return moveList;
     }

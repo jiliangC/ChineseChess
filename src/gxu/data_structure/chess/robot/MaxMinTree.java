@@ -7,7 +7,7 @@ import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
 
-public class MaxMinTree {
+public class MaxMinTree implements Constants {
     private final int anInt = 1000000;
     private final XqChessBoard ChessBoard = new XqChessBoard();
 
@@ -21,11 +21,10 @@ public class MaxMinTree {
         ChessBoard.setShuai(xqChessBoard.getShuai());
         WalkState = new XqWalkState(ChessBoard);
         evaluation = new Evaluation(WalkState);
-        //System.out.println(Arrays.toString(ChessBoard.getUcpcSquares()));
     }
 
-    public int Max_min_tree(int deep, boolean red) {
-        if (deep <= 0) {
+    public int Max_min_tree(int deep, boolean red, int state) {
+        if (deep <= 0 || state == redJiang || state == blackJiang) {
             return evaluation.eva();
         }
 
@@ -45,7 +44,7 @@ public class MaxMinTree {
             int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
             ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
 
-            eva = Math.max(eva, -Max_min_tree(deep - 1, !red));
+            eva = Math.max(eva, -Max_min_tree(deep - 1, !red, toState));
 
             //撤回这一步
             ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), fromState);
@@ -71,7 +70,7 @@ public class MaxMinTree {
             int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
             ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
 
-            int e = -Max_min_tree(deep - 1, !red);
+            int e = -Max_min_tree(deep - 1, !red, toState);
             if (eva < e) {
                 mm = i;
                 eva = e;
@@ -83,12 +82,6 @@ public class MaxMinTree {
         }
         System.out.println();
         return mm;
-    }
-
-
-    //示例
-    public int e() {
-        return evaluation.eva();
     }
 
 }

@@ -64,6 +64,7 @@ public class CheWalker extends AbstractWalker implements Constants {
 
     @Override
     protected boolean canMove(boolean red, int x, int y, int tx, int ty) {
+        if (isSelf(tx, ty, red) || (x == tx && y == ty)) return false;
         if (x == tx) {
             int p = Math.min(y, ty);
             int q = Math.max(y, ty);

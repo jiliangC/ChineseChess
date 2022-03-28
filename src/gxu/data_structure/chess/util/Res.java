@@ -10,14 +10,14 @@ public interface Res {
     MP3Player eat_mp3 = new MP3Player(Resource.getStream("audio_eat.mp3"));
     MP3Player win_mp3 = null;
     MP3Player defeat_mp3 = new MP3Player(Resource.getStream("defeat.mp3"));
-    MP3Player jiangjun_mp3 = null;
+    MP3Player jiang_mp3 = null;
 
     //声音类型：
     int t_select = 1;
     int t_click = 2;
     int t_win = 3;
     int t_defeat = 4;
-    int t_jiangjun = 5;
+    int t_jiang = 5;
     int t_eat = 6;
 
 

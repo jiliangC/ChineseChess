@@ -4,6 +4,9 @@ package gxu.data_structure.chess;
  * 表示常量
  */
 public interface Constants {
+    boolean RED = true;
+    boolean BLACK = false;
+
     int EMPTY = 0;
     int select = 1;
 

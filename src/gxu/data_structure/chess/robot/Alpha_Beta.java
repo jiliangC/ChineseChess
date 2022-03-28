@@ -8,11 +8,10 @@ import gxu.data_structure.chess.core.Move;
 import java.util.ArrayList;
 
 
-public class Alpha_Beta {
+public class Alpha_Beta implements Constants {
     private final XqChessBoard ChessBoard = new XqChessBoard();
     private final XqWalkState WalkState;
     private final Evaluation evaluation;
-    private final boolean RED = true, BLACK = false;
 
     public Alpha_Beta(XqChessBoard xqChessBoard) {
         //模拟专用棋盘
@@ -23,8 +22,9 @@ public class Alpha_Beta {
         evaluation = new Evaluation(WalkState);
     }
 
-    int AlphaBeta(int deep, int a, int b, boolean red) {
-        if (deep == 0) {
+    int AlphaBeta(int deep, int a, int b, boolean red, int state) {
+        //搜索深度为0或者光头没了就结束
+        if (deep == 0 || state == redJiang || state == blackJiang) {
             return -evaluation.eva();
         }
 
@@ -41,7 +41,8 @@ public class Alpha_Beta {
                 int fromState = ChessBoard.getState(i.getFrom().getX(), i.getFrom().getY());
                 int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
                 ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
-                a = Math.max(a, AlphaBeta(deep - 1, a, b, RED));
+
+                a = Math.max(a, AlphaBeta(deep - 1, a, b, RED, toState));
                 //撤回这一步
                 ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), fromState);
                 ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), toState);
@@ -56,7 +57,7 @@ public class Alpha_Beta {
                 int fromState = ChessBoard.getState(i.getFrom().getX(), i.getFrom().getY());
                 int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
                 ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
-                b = Math.min(b, AlphaBeta(deep - 1, a, b, BLACK));
+                b = Math.min(b, AlphaBeta(deep - 1, a, b, BLACK, toState));
                 //撤回这一步
                 ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), fromState);
                 ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), toState);
@@ -82,8 +83,7 @@ public class Alpha_Beta {
             int fromState = ChessBoard.getState(i.getFrom().getX(), i.getFrom().getY());
             int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
             ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
-
-            int temp_a = AlphaBeta(deep - 1, a, b, RED);
+            int temp_a = AlphaBeta(deep - 1, a, b, RED, toState);
             if (temp_a > a) {
                 a = temp_a;
                 mm = i;

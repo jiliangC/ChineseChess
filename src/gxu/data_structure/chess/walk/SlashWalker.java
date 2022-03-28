@@ -24,7 +24,7 @@ public class SlashWalker extends AbstractWalker {
         int dstIndex = indexFor(tx, ty);
         for (int i = 0; i < offset.length; i++) {
             for (int j = 0; j < offset[i].length; j++) {
-                if (filter(pointForX(dstIndex), pointForY(dstIndex), red) && srcIndex + offset[i][j] == dstIndex) {
+                if (filter(pointForX(dstIndex), pointForY(dstIndex), red) && srcIndex + offset[i][j] == dstIndex && !isSelf(dstIndex, red)) {
                     //判断腿上是否有子
                     return LegOffset == null || getState(srcIndex + LegOffset[i]) == 0;
                 }

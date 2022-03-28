@@ -173,6 +173,10 @@ public class XqWalkState implements WalkState, Constants {
                 int fromState = chessBoard.getState(move.getFrom().getX(), move.getFrom().getY());
                 int toState = chessBoard.setState(move.getTo().getX(), move.getTo().getY(), fromState);
                 chessBoard.setState(move.getFrom().getX(), move.getFrom().getY(), EMPTY);
+                if (fromState == blackJiang || fromState == redJiang) { //老帅动了
+                    enemyX = red ? chessBoard.getJiang().getX() : chessBoard.getShuai().getX();
+                    enemyY = red ? chessBoard.getJiang().getY() : chessBoard.getShuai().getY();
+                }
                 if (!isJiangJun(!red, enemyX, enemyY)) { //判断是否将军，如果没有将军 说明没有被将死
                     die = false;
                     System.out.println("解除将军");
@@ -256,12 +260,11 @@ public class XqWalkState implements WalkState, Constants {
 
     //与马走法对立的走法，也就是判断马能否吃到将/帅
 
-    //bug
     private static class JiangJunMaWalker extends SlashWalker {
         JiangJunMaWalker(WalkState walkState) {
             super(
-                    new int[][]{{-33, -31}, {-18, 14}, {-14, 18}, {31, 33}},
-                    new int[]{-17, -15, 15, 17} //只是马腿的偏移不同
+                    new int[][]{{-33, -18}, {-31, -14}, {33, 18}, {31, 14}},
+                    new int[]{-17, -15, 17, 15} //只是马腿的偏移不同
             );
             setState(walkState);
         }

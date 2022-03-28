@@ -280,7 +280,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
             case t_click -> mp3 = click_mp3;
             case t_defeat -> mp3 = defeat_mp3;
             case t_win -> mp3 = win_mp3;
-            case t_jiangjun -> mp3 = jiangjun_mp3;
+            case t_jiang -> mp3 = jiang_mp3;
             case t_eat -> mp3 = eat_mp3;
         }
         MP3Player finalMp = mp3;
