@@ -297,10 +297,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private void hasWin(int state) {
         if (state == redJiang) {
             playing = false;
-
-
             MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
-
 
         }
         if (state == blackJiang) {
@@ -312,10 +309,10 @@ public class ChessPanel extends JPanel implements Constants, Res {
             case RED:
                 if (red) {
                     playing = false;
-
                     MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
                 } else {
-                    MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红棋被将军", "提示");
+                    music(t_jiang);
+                    //MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红棋被将军", "提示");
                     System.out.println("红棋被将军！");
                 }
                 break;
@@ -324,8 +321,9 @@ public class ChessPanel extends JPanel implements Constants, Res {
                     playing = false;
                     MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红胜！", "提示");
                 } else {
+                    music(t_jiang);
                     System.out.println("黑棋被将军！");
-                    MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑棋被将军！", "提示");
+                    //MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑棋被将军！", "提示");
                 }
                 break;
             case RED_KILL:

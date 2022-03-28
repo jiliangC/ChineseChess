@@ -8,9 +8,9 @@ public interface Res {
     MP3Player click_mp3 = new MP3Player(Resource.getStream("audio_click.mp3"));
     MP3Player select_mp3 = new MP3Player(Resource.getStream("audio_select.mp3"));
     MP3Player eat_mp3 = new MP3Player(Resource.getStream("audio_eat.mp3"));
-    MP3Player win_mp3 = null;
-    MP3Player defeat_mp3 = new MP3Player(Resource.getStream("defeat.mp3"));
-    MP3Player jiang_mp3 = null;
+    MP3Player win_mp3 = new MP3Player(Resource.getStream("audio_win.mp3"));
+    MP3Player defeat_mp3 = new MP3Player(Resource.getStream("audio_defeat.mp3"));
+    MP3Player jiang_mp3 = new MP3Player(Resource.getStream("audio_jiang.mp3"));
 
     //声音类型：
     int t_select = 1;
