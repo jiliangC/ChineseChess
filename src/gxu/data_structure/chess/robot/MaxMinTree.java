@@ -70,6 +70,16 @@ public class MaxMinTree implements Constants {
             int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
             ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
 
+            int selfX = ChessBoard.getJiang().getX();
+            int selfY = ChessBoard.getJiang().getY();
+            //走后被将军了
+            if (WalkState.isJiangJun(false, selfX, selfY)) {
+                //撤回这一步
+                ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), fromState);
+                ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), toState);
+                continue;
+            }
+
             int e = -Max_min_tree(deep - 1, !red, toState);
             if (eva < e) {
                 mm = i;

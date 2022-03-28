@@ -157,6 +157,7 @@ public class XqWalkState implements WalkState, Constants {
         int enemyY = red ? chessBoard.getJiang().getY() : chessBoard.getShuai().getY();
         if (isJiangJun(red, selfX, selfY)) { //先要判断自己是否被将军.
             //走了一步，自己被将军了，那不就输了?
+            System.out.println("这里这里");
             return red ? WinEnum.RED : WinEnum.BLACK;
         }
         if (isJiangJun(!red, enemyX, enemyY)) { //判断对方是否被将军
@@ -218,9 +219,7 @@ public class XqWalkState implements WalkState, Constants {
      * (4) 假设帅(将)是过河的兵(卒)，判断它是否能吃到对方的卒(兵)。
      */
 
-    //需要重写
-
-    private boolean isJiangJun(boolean red, int x, int y) {
+    public boolean isJiangJun(boolean red, int x, int y) {
         //(x,y)光头的位置
         Walker cheWalker = walkerMap.get(redChe); //假设帅(将)是车
         List<Move> cheMoves = cheWalker.getAllMove(red, x, y);

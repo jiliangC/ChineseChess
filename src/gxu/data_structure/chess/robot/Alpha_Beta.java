@@ -42,6 +42,7 @@ public class Alpha_Beta implements Constants {
                 int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
                 ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
 
+
                 a = Math.max(a, AlphaBeta(deep - 1, a, b, RED, toState));
                 //撤回这一步
                 ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), fromState);
@@ -83,6 +84,17 @@ public class Alpha_Beta implements Constants {
             int fromState = ChessBoard.getState(i.getFrom().getX(), i.getFrom().getY());
             int toState = ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), fromState);
             ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), Constants.EMPTY);
+
+            int selfX = ChessBoard.getJiang().getX(); //自己这边的将/帅坐标
+            int selfY = ChessBoard.getJiang().getY();
+            //走后被将军了
+            if (WalkState.isJiangJun(false, selfX, selfY)) {
+                //撤回这一步
+                ChessBoard.setState(i.getFrom().getX(), i.getFrom().getY(), fromState);
+                ChessBoard.setState(i.getTo().getX(), i.getTo().getY(), toState);
+                continue;
+            }
+
             int temp_a = AlphaBeta(deep - 1, a, b, RED, toState);
             if (temp_a > a) {
                 a = temp_a;
