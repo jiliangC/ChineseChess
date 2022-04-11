@@ -50,11 +50,11 @@ public class Evaluation implements Constants {
             if (isBlack(state)) {
                 B_Value += values(state); //黑子价值
                 B_Position += position(state, i); //黑子位置价值
-                //B_Flexible += flexible(state, i, false); //黑子灵活度
+                B_Flexible += flexible(state, i, false); //黑子灵活度
             } else if (isRed(state)) {
                 R_Value += values(state); //红字价值
                 R_Position += position(state, i); //红字位置价值
-                //R_Flexible += flexible(state, i, true); //红子灵活度
+                R_Flexible += flexible(state, i, true); //红子灵活度
             }
         }
         R_sum = R_Value * K_Value + R_Position * K_Position + R_Flexible * K_Flexible;

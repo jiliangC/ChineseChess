@@ -38,6 +38,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private XqChessBoard chessBoard = new XqChessBoard();
     private final XqWalkState walkState = new XqWalkState(chessBoard);
     private final boolean robot;
+    private final Component component = this;
 
 
     private Point selectPoint; //选中的棋子
@@ -241,6 +242,14 @@ public class ChessPanel extends JPanel implements Constants, Res {
                             //Alpha_Beta搜索
                             Alpha_Beta alpha_beta = new Alpha_Beta(chessBoard);
                             Move m = alpha_beta.rootSearch(4, -10000000, 10000000, red);
+
+                            if (m == null) { //黑子怎么走都是被将军，则红胜利
+                                MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(component), "红胜！", "提示");
+                                music(t_win);
+                                playing = false;
+                            }
+
+
                             System.out.println(m.getFrom() + "\n" + m.getTo());
                             int fx = m.getFrom().getX(), fy = m.getFrom().getY();
                             int tox = m.getTo().getX(), toy = m.getTo().getY();

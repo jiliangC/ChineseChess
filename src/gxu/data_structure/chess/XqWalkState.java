@@ -197,6 +197,8 @@ public class XqWalkState implements WalkState, Constants {
         //如果所有人只剩下象士帅，则和棋
         ArrayList<Piece> pieceArrayList = new ArrayList<>();
         setPieceArrayList(!red, pieceArrayList);
+        setPieceArrayList(red, pieceArrayList);
+
         boolean draw = true;
 
         for (Piece i : pieceArrayList) {
