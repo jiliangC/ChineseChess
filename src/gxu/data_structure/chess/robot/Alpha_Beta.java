@@ -25,7 +25,7 @@ public class Alpha_Beta implements Constants {
     int AlphaBeta(int deep, int a, int b, boolean red, int state) {
         //搜索深度为0或者光头没了就结束
         if (deep == 0 || state == redJiang || state == blackJiang) {
-            return -evaluation.eva();
+            return -evaluation.eva(2);
         }
 
         ArrayList<Piece> pieceArrayList = new ArrayList<>();

@@ -4,9 +4,8 @@ package gxu.data_structure.chess;
 import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.Point;
 import gxu.data_structure.chess.core.WinEnum;
-import gxu.data_structure.chess.robot.Alpha_Beta;
+import gxu.data_structure.chess.robot.Hard_Rank;
 import gxu.data_structure.chess.robot.Piece;
-import gxu.data_structure.chess.util.GameSave;
 import gxu.data_structure.chess.util.MP3Player;
 import gxu.data_structure.chess.util.MyOptionPane;
 import gxu.data_structure.chess.util.Res;
@@ -16,10 +15,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +34,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
     private final XqWalkState walkState = new XqWalkState(chessBoard);
     private final boolean robot;
     private final Component component = this;
+    private Hard_Rank hard_rank = new Hard_Rank(2);
+    protected Thread thread;
 
 
     private Point selectPoint; //选中的棋子
@@ -184,12 +181,6 @@ public class ChessPanel extends JPanel implements Constants, Res {
 
     }
 
-    /**
-     * 当用户在棋盘上点击时，触发
-     *
-     * @param x 横坐标，取值0-8
-     * @param y 纵坐标，取值0-9
-     */
     private void onClick(int x, int y) {
         if (!playing) {
             return;
@@ -232,50 +223,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 red = !red;
 
                 //到机器人走棋子
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!red && robot && playing) {
-//                    这里最大最小搜索
-//                    MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
-//                    Move m = maxMinTree.rootSearch(3, red);
-                            //Alpha_Beta搜索
-                            Alpha_Beta alpha_beta = new Alpha_Beta(chessBoard);
-                            Move m = alpha_beta.rootSearch(4, -10000000, 10000000, red);
-
-                            if (m == null) { //黑子怎么走都是被将军，则红胜利
-                                MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(component), "红胜！", "提示");
-                                music(t_win);
-                                playing = false;
-                            }
-
-
-                            System.out.println(m.getFrom() + "\n" + m.getTo());
-                            int fx = m.getFrom().getX(), fy = m.getFrom().getY();
-                            int tox = m.getTo().getX(), toy = m.getTo().getY();
-                            int r_state = chessBoard.getState(fx, fy);
-                            chessBoard.setState(fx, fy, EMPTY);
-                            int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
-
-                            if (r_old == EMPTY)
-                                music(t_click);
-                            else
-                                music(t_eat);
-
-                            Graphics2D g = resetBackground();
-                            drawChessBoard(g);
-                            drawSelect(g, fx, fy); //绘制选择
-                            drawSelect(g, tox, toy); //绘制选择
-                            g.dispose();
-                            repaint();
-                            //repaintBoard();
-                            hasWin(r_old);
-                            red = !red;
-                        }
-                    }
-                }).start();
-
-
+                to_robot();
             } else {
                 System.out.println("不可走棋:" + move);
             }
@@ -302,16 +250,68 @@ public class ChessPanel extends JPanel implements Constants, Res {
 
     }
 
+    //到AI走
+    private void to_robot() {
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (!red && robot && playing) {
+                    Move m = hard_rank.search_walk(chessBoard, red);
+//                    这里最大最小搜索
+//                    MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
+//                    Move m = maxMinTree.rootSearch(3, red);
+//                            //Alpha_Beta搜索
+//                            Alpha_Beta alpha_beta = new Alpha_Beta(chessBoard);
+//                            Move m = alpha_beta.rootSearch(4, -10000000, 10000000, red);
+
+                    if (m == null) { //黑子怎么走都是被将军，则红胜利
+                        MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(component), "红胜！", "提示");
+                        music(t_win);
+                        playing = false;
+                    }
+
+
+                    System.out.println(m.getFrom() + "\n" + m.getTo());
+                    int fx = m.getFrom().getX(), fy = m.getFrom().getY();
+                    int tox = m.getTo().getX(), toy = m.getTo().getY();
+                    int r_state = chessBoard.getState(fx, fy);
+                    chessBoard.setState(fx, fy, EMPTY);
+                    int r_old = chessBoard.setState(tox, toy, r_state); //更新棋盘上的状态
+
+                    if (r_old == EMPTY)
+                        music(t_click);
+                    else
+                        music(t_eat);
+
+                    Graphics2D g = resetBackground();
+                    drawChessBoard(g);
+                    drawSelect(g, fx, fy); //绘制选择
+                    drawSelect(g, tox, toy); //绘制选择
+                    g.dispose();
+                    repaint();
+                    //repaintBoard();
+                    hasWin(r_old);
+                    red = !red;
+                }
+            }
+        });
+        thread.start();
+    }
+
 
     private void hasWin(int state) {
         if (state == redJiang) {
             playing = false;
             MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
+            if (robot)
+                music(t_defeat);
 
         }
         if (state == blackJiang) {
             playing = false;
             MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红胜！", "提示");
+            if (robot)
+                music(t_win);
         }
         WinEnum winEnum = walkState.hasWin(red);
         switch (winEnum) {
@@ -319,6 +319,8 @@ public class ChessPanel extends JPanel implements Constants, Res {
                 if (red) {
                     playing = false;
                     MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "黑胜！", "提示");
+                    if (robot)
+                        music(t_defeat);
                 } else {
                     music(t_jiang);
                     //MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "红棋被将军", "提示");
@@ -338,10 +340,12 @@ public class ChessPanel extends JPanel implements Constants, Res {
             case RED_KILL:
                 playing = false;
                 MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "绝杀！黑胜！", "提示");
+                if (robot) music(t_defeat);
                 break;
             case BLACK_KILL:
                 playing = false;
                 MyOptionPane.showMessageDialog(JOptionPane.getFrameForComponent(this), "绝杀！红胜！", "提示");
+                if (robot) music(t_win);
                 break;
             case DRAW:
                 playing = false;
@@ -372,8 +376,6 @@ public class ChessPanel extends JPanel implements Constants, Res {
         red = true;
         chessBoard.clear();
         chessBoard.setDefault();
-
-
         //绘制背景图片
         Graphics2D g = resetBackground();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -386,23 +388,9 @@ public class ChessPanel extends JPanel implements Constants, Res {
         red = false;
     }
 
-    //保存棋局
-    public void save(OutputStream outputStream) throws Exception {
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-        GameSave gameSave = new GameSave(chessBoard, red, playing);
-        objectOutputStream.writeObject(gameSave);
-    }
-
-    //加载棋局
-    public void load(InputStream inputStream) throws Exception {
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        GameSave gameSave = (GameSave) objectInputStream.readObject();
-        chessBoard = (XqChessBoard) gameSave.getChessBoard();
-        red = gameSave.isRed();
-        playing = gameSave.isPlaying();
-        selectPoint = null;
-        walkState.setChessBoard(chessBoard);
-        repaintBoard();
+    //设置人机难度等级
+    public void setHard_rank(int hard) {
+        hard_rank = new Hard_Rank(hard);
     }
 
 

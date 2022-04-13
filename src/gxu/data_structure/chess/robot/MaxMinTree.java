@@ -25,7 +25,7 @@ public class MaxMinTree implements Constants {
 
     public int Max_min_tree(int deep, boolean red, int state) {
         if (deep <= 0 || state == redJiang || state == blackJiang) {
-            return evaluation.eva();
+            return evaluation.eva(1);
         }
 
         ArrayList<Piece> pieceArrayList = new ArrayList<>();

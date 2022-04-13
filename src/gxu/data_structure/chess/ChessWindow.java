@@ -6,13 +6,11 @@ import gxu.data_structure.chess.util.Res;
 import gxu.data_structure.chess.util.Resource;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ChessWindow extends JFrame implements Constants, Res {
 
@@ -45,8 +43,18 @@ public class ChessWindow extends JFrame implements Constants, Res {
     }
 
     //先手
-    private void ButtonGameStartFirst(MouseEvent e) {
+    private void ButtonGameStartFirst(MouseEvent e, int hard) {
         if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要重新开局？", "是", "否")) {
+            if (hard == 1) {
+                panel.setHard_rank(1);
+                if (panel.thread != null)
+                    panel.thread.stop();
+            } else if (hard == 2) {
+                panel.setHard_rank(2);
+                if (panel.thread != null)
+                    panel.thread.stop();
+            }
+
             panel.gameStartFirst();
             panel.repaint();
         }
@@ -67,10 +75,6 @@ public class ChessWindow extends JFrame implements Constants, Res {
             dispose();
             /*new PrimaryPageWindow().setVisible(true);*/
         }
-    }
-    //假悔棋
-    private void menuBackChess(ActionEvent e) {
-        MyOptionPane.showMessageDialog(this, "落子无悔大丈夫！", "提示");
     }
 
     private void initComponents() {
@@ -158,7 +162,7 @@ public class ChessWindow extends JFrame implements Constants, Res {
         jLabel_restartred.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                ButtonGameStartFirst(e);
+                ButtonGameStartFirst(e, 2);
 
             }
 
@@ -195,7 +199,7 @@ public class ChessWindow extends JFrame implements Constants, Res {
             jLabel_restartblack.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                   ButtonGameStartFirst(e);
+                    ButtonGameStartFirst(e, 1);
                 }
 
                 @Override
@@ -211,6 +215,7 @@ public class ChessWindow extends JFrame implements Constants, Res {
                 }
 
             });
+
         }
         else{
             jLabel_restartred.setFont(new Font("隶书", Font.BOLD, 20));
