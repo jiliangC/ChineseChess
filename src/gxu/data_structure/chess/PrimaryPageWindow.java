@@ -51,8 +51,9 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
         JLabel  jLabel1 = new JLabel();
         jLabel1.setText("单人游戏");
         panel.add(jLabel1);
-        jLabel1.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
+        jLabel1.setFont(new Font("隶书", Font.BOLD, 64));
         jLabel1.setBounds(127, 160, 294, 62);
+        jLabel1.setForeground(new Color(200,40,20));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.addMouseListener(new MouseAdapter() {
             @Override
@@ -73,7 +74,8 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
         JLabel  jLabel2 = new JLabel();
         jLabel2.setText("双人对战");
         panel.add(jLabel2);
-        jLabel2.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
+        jLabel2.setFont(new Font("隶书", Font.BOLD, 64));
+        jLabel2.setForeground(new Color(200,40,20));
         jLabel2.setBounds(127, 260, 294, 62);
         jLabel2.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel2.addMouseListener(new MouseAdapter() {
@@ -96,7 +98,8 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
         JLabel  jLabel3 = new JLabel();
         jLabel3.setText("退出游戏");
         panel.add(jLabel3);
-        jLabel3.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 60));
+        jLabel3.setFont(new Font("隶书", Font.BOLD, 64));
+        jLabel3.setForeground(new Color(200,40,20));
         jLabel3.setBounds(127, 360, 294, 62);
         jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel3.addMouseListener(new MouseAdapter() {
@@ -136,7 +139,6 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
 
     private void IndividualGame() {
         new ChessWindow(true).setVisible(true);
-
         dispose();
     }
 
@@ -153,7 +155,7 @@ public class PrimaryPageWindow extends JFrame implements Res, Constants {
 
     private void jLabelMouseExited(MouseEvent e) {
         JLabel jLabel = (JLabel) e.getSource();
-        jLabel.setForeground(new Color(51,51,51));
+        jLabel.setForeground(new Color(200,40,20));
     }
 
     private void jLabelMouseEntered(MouseEvent e) {
