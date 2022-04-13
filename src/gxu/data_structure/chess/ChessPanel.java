@@ -255,8 +255,16 @@ public class ChessPanel extends JPanel implements Constants, Res {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
+
+
                 if (!red && robot && playing) {
                     Move m = hard_rank.search_walk(chessBoard, red);
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        System.out.println("线程终止");
+                        return;
+                    }
 //                    这里最大最小搜索
 //                    MaxMinTree maxMinTree = new MaxMinTree(chessBoard);
 //                    Move m = maxMinTree.rootSearch(3, red);

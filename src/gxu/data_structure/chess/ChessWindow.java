@@ -48,11 +48,11 @@ public class ChessWindow extends JFrame implements Constants, Res {
             if (hard == 1) {
                 panel.setHard_rank(1);
                 if (panel.thread != null)
-                    panel.thread.stop();
+                    panel.thread.interrupt();
             } else if (hard == 2) {
                 panel.setHard_rank(2);
                 if (panel.thread != null)
-                    panel.thread.stop();
+                    panel.thread.interrupt();
             }
 
             panel.gameStartFirst();
