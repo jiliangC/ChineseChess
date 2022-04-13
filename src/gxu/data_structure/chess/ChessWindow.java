@@ -44,17 +44,9 @@ public class ChessWindow extends JFrame implements Constants, Res {
         super.dispose();
     }
 
-    //点击菜单的退出
-    private void menuConfirmExit(ActionEvent e) {
-        if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要退出？", "是", "否")) {
-            dispose();
-            new PrimaryPageWindow().setVisible(true);
-        }
-    }
-
     //先手
-    private void menuGameStartFirst(ActionEvent e) {
-        if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要重新开局（先手）？", "是", "否")) {
+    private void ButtonGameStartFirst(MouseEvent e) {
+        if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要重新开局？", "是", "否")) {
             panel.gameStartFirst();
             panel.repaint();
         }
@@ -62,8 +54,8 @@ public class ChessWindow extends JFrame implements Constants, Res {
     }
 
     //后手
-    private void menuGameStartLast(ActionEvent e) {
-        if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要重新开局（后手）？", "是", "否")) {
+    private void ButtonGameStartLast(MouseEvent e) {
+        if (MyOptionPane.showConfirmDialog(this, "提示", "你是否要重新开局？", "是", "否")) {
             panel.gameStartLast();
             panel.repaint();
         }
@@ -163,11 +155,10 @@ public class ChessWindow extends JFrame implements Constants, Res {
         jLabel_restartred.setBounds(578, 500, 148, 30);
 //        jLabel_restartred.setBorder(BorderFactory.createLineBorder(new Color(51,51,51)));
         jLabel_restartred.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel_restartred.addMouseListener(new MouseAdapter() {
+        jLabel_restartred.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                panel.gameStartFirst();
-                panel.repaint();
+                ButtonGameStartFirst(e);
 
             }
 
@@ -204,8 +195,7 @@ public class ChessWindow extends JFrame implements Constants, Res {
             jLabel_restartblack.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    panel.gameStartFirst();
-                    panel.repaint();
+                   ButtonGameStartFirst(e);
                 }
 
                 @Override
@@ -228,8 +218,7 @@ public class ChessWindow extends JFrame implements Constants, Res {
             jLabel_restartblack.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    panel.gameStartLast();
-                    panel.repaint();
+                    ButtonGameStartLast(e);
                 }
 
                 @Override
