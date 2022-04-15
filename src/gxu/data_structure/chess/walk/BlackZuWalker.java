@@ -4,7 +4,6 @@ import gxu.data_structure.chess.Constants;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class BlackZuWalker extends AbstractWalker {
@@ -15,8 +14,8 @@ public class BlackZuWalker extends AbstractWalker {
     }
 
     @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
-        List<Move> moveList = new ArrayList<>();
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
+        ArrayList<Move> moveList = new ArrayList<>();
         if (isCrossRiver(x, y, red)) {
             if (x > 0 && !isSelf(x - 1, y, red)) moveList.add(new Move(x, y, x - 1, y));
             if (x < walkState.getChessBoard().getMaxX() - 1 && !isSelf(x + 1, y, red))

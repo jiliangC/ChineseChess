@@ -4,7 +4,6 @@ import gxu.data_structure.chess.Constants;
 import gxu.data_structure.chess.XqWalkState;
 import gxu.data_structure.chess.core.Move;
 import gxu.data_structure.chess.core.Point;
-import gxu.data_structure.chess.core.WalkState;
 
 
 /**
@@ -42,9 +41,9 @@ public abstract class AbstractWalker implements Walker {
         return state;
     }
 
-    @Override
-    public final void setState(WalkState walkState) {
-        this.walkState = (XqWalkState) walkState;
+
+    public final void setState(XqWalkState walkState) {
+        this.walkState = walkState;
     }
 
     //判断是否在棋盘内 （x,y）

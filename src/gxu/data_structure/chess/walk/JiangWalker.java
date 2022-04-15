@@ -3,15 +3,14 @@ package gxu.data_structure.chess.walk;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 将帅的走法
  */
 public class JiangWalker extends AbstractWalker {
     @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
-        List<Move> moveList = new ArrayList<>();
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
+        ArrayList<Move> moveList = new ArrayList<>();
         if (isInNine(x, y - 1, red) && !isSelf(x, y - 1, red))
             moveList.add(new Move(x, y, x, y - 1));
         if (isInNine(x, y + 1, red) && !isSelf(x, y + 1, red))

@@ -1,20 +1,17 @@
 package gxu.data_structure.chess;
 
 import gxu.data_structure.chess.core.Move;
-import gxu.data_structure.chess.core.WalkState;
 import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.robot.Piece;
 import gxu.data_structure.chess.walk.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
-public class XqWalkState implements WalkState, Constants {
+public class XqWalkState implements Constants {
     //存棋子状态和对象
-    private final Map<Integer, Walker> walkerMap = new HashMap<>();
+    private final HashMap<Integer, Walker> walkerMap = new HashMap<>();
     //象棋棋盘
     private XqChessBoard chessBoard;
 
@@ -50,7 +47,7 @@ public class XqWalkState implements WalkState, Constants {
         return state != EMPTY && (red ? isRed(state) : isBlack(state));
     }
 
-    @Override
+
     public XqChessBoard getChessBoard() {
         return chessBoard;
     }
@@ -59,7 +56,7 @@ public class XqWalkState implements WalkState, Constants {
         this.chessBoard = chessBoard;
     }
 
-    @Override
+
     public boolean canMove(boolean red, Move move) {
         int x = move.getFrom().getX();
         int y = move.getFrom().getY();
@@ -92,7 +89,7 @@ public class XqWalkState implements WalkState, Constants {
         return chessBoard.getUcpcSquares();
     }
 
-    @Override
+
     public boolean canSelect(boolean red, int x, int y) {
         //只能选中自己的棋子
         if (!chessBoard.inBoard(x, y)) { //在边界外的当然不能选中了
@@ -110,8 +107,8 @@ public class XqWalkState implements WalkState, Constants {
         }
     }
 
-    @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
+
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
         //不坐标在棋盘上
         if (!chessBoard.inBoard(x, y)) {
             return new ArrayList<>();
@@ -120,8 +117,8 @@ public class XqWalkState implements WalkState, Constants {
         // private final Map<Integer, Walker> walkerMap = new HashMap<>();
         int state = chessBoard.getState(x, y);
         Walker walker = walkerMap.get(state);
-        List<Move> move = walker.getAllMove(red, x, y);
-        List<Move> moveList = new ArrayList<>();
+        ArrayList<Move> move = walker.getAllMove(red, x, y);
+        ArrayList<Move> moveList = new ArrayList<>();
         for (Move m : move) {
             //可走格子上的棋子
             int s = chessBoard.getState(m.getTo().getX(), m.getTo().getY());
@@ -149,7 +146,7 @@ public class XqWalkState implements WalkState, Constants {
     }
 
     //red方走了一步后，判断是否将军的情况
-    @Override
+
     public WinEnum hasWin(boolean red) {
         int selfX = red ? chessBoard.getShuai().getX() : chessBoard.getJiang().getX(); //自己这边的将/帅坐标
         int selfY = red ? chessBoard.getShuai().getY() : chessBoard.getJiang().getY();
@@ -224,7 +221,7 @@ public class XqWalkState implements WalkState, Constants {
     public boolean isJiangJun(boolean red, int x, int y) {
         //(x,y)光头的位置
         Walker cheWalker = walkerMap.get(redChe); //假设帅(将)是车
-        List<Move> cheMoves = cheWalker.getAllMove(red, x, y);
+        ArrayList<Move> cheMoves = cheWalker.getAllMove(red, x, y);
         for (Move cheMove : cheMoves) {
             int state = chessBoard.getState(cheMove.getTo().getX(), cheMove.getTo().getY());
             if (state == (red ? blackChe : redChe) || state == (red ? blackJiang : redJiang)) {
@@ -232,7 +229,7 @@ public class XqWalkState implements WalkState, Constants {
             }
         }
         Walker paoWalker = walkerMap.get(redPao); //假设帅(将)是炮
-        List<Move> paoMoves = paoWalker.getAllMove(red, x, y);
+        ArrayList<Move> paoMoves = paoWalker.getAllMove(red, x, y);
         for (Move paoMove : paoMoves) {
             int state = chessBoard.getState(paoMove.getTo().getX(), paoMove.getTo().getY());
             if (state == (red ? blackPao : redPao)) {
@@ -240,7 +237,7 @@ public class XqWalkState implements WalkState, Constants {
             }
         }
 
-        List<Move> maMoves = jjMaWalker.getAllMove(red, x, y); //假设帅(将)是马
+        ArrayList<Move> maMoves = jjMaWalker.getAllMove(red, x, y); //假设帅(将)是马
         for (Move maMove : maMoves) {
             int state = chessBoard.getState(maMove.getTo().getX(), maMove.getTo().getY());
             if (state == (red ? blackMa : redMa)) {
@@ -249,7 +246,7 @@ public class XqWalkState implements WalkState, Constants {
         }
 
         //假设帅(将)是过河的兵(卒)
-        List<Move> zuMoves = (red ? jjRedZuWalker : jjBlackZuWalker).getAllMove(red, x, y);
+        ArrayList<Move> zuMoves = (red ? jjRedZuWalker : jjBlackZuWalker).getAllMove(red, x, y);
         for (Move zuMove : zuMoves) {
             int state = chessBoard.getState(zuMove.getTo().getX(), zuMove.getTo().getY());
             if (state == (red ? blackZu : redZu)) {
@@ -262,7 +259,7 @@ public class XqWalkState implements WalkState, Constants {
     //与马走法对立的走法，也就是判断马能否吃到将/帅
 
     private static class JiangJunMaWalker extends SlashWalker {
-        JiangJunMaWalker(WalkState walkState) {
+        JiangJunMaWalker(XqWalkState walkState) {
             super(
                     new int[][]{{-33, -18}, {-31, -14}, {33, 18}, {31, 14}},
                     new int[]{-17, -15, 17, 15} //只是马腿的偏移不同
@@ -273,7 +270,7 @@ public class XqWalkState implements WalkState, Constants {
 
     private static class JiangJunRedZuWalker extends RedZuWalker {
 
-        JiangJunRedZuWalker(WalkState walkState) {
+        JiangJunRedZuWalker(XqWalkState walkState) {
             setState(walkState);
         }
 
@@ -284,7 +281,7 @@ public class XqWalkState implements WalkState, Constants {
     }
 
     private static class JiangJunBlackZuWalker extends BlackZuWalker {
-        JiangJunBlackZuWalker(WalkState walkState) {
+        JiangJunBlackZuWalker(XqWalkState walkState) {
             setState(walkState);
         }
 
@@ -330,7 +327,7 @@ public class XqWalkState implements WalkState, Constants {
         for (Piece piece : pieceArrayList) {
             int fromX = piece.ForX();
             int fromY = piece.ForY();
-            List<Move> list = piece.getWalker().getAllMove(red, fromX, fromY);
+            ArrayList<Move> list = piece.getWalker().getAllMove(red, fromX, fromY);
             moves.addAll(list);
         }
     }

@@ -4,7 +4,6 @@ import gxu.data_structure.chess.Constants;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 红方兵的走法
@@ -17,8 +16,8 @@ public class RedZuWalker extends AbstractWalker {
     }
 
     @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
-        List<Move> moveList = new ArrayList<>();
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
+        ArrayList<Move> moveList = new ArrayList<>();
         if (isCrossRiver(x, y, red)) {
             if (y > 0 && !isSelf(x, y - 1, red)) moveList.add(new Move(x, y, x, y - 1));
             if (x > 0 && !isSelf(x - 1, y, red)) moveList.add(new Move(x, y, x - 1, y));

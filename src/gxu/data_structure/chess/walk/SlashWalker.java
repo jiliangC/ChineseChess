@@ -3,7 +3,6 @@ package gxu.data_structure.chess.walk;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 走斜线的棋子，适用于马，象、士
@@ -34,9 +33,9 @@ public class SlashWalker extends AbstractWalker {
     }
 
     @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
         int srcIndex = indexFor(x, y);
-        List<Move> moves = new ArrayList<>();
+        ArrayList<Move> moves = new ArrayList<>();
         for (int i = 0; i < offset.length; i++) {
             for (int j = 0; j < offset[i].length; j++) {
                 //如果马腿上没有子，且目标不是自己的，就可以走

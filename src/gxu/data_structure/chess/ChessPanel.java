@@ -16,7 +16,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -171,7 +170,7 @@ public class ChessPanel extends JPanel implements Constants, Res {
     }
 
     private void drawCursor(Graphics g, int x, int y) {
-        List<Move> list = walkState.getAllMove(red, x, y);
+        ArrayList<Move> list = walkState.getAllMove(red, x, y);
         for (Move move1 : list) {
             Point point = move1.getTo();
             int px = 20 + x0 + point.getX() * lineHeight - chessSize / 2;

@@ -5,13 +5,12 @@ import gxu.data_structure.chess.Constants;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class PaoWalker extends AbstractWalker implements Constants {
     @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
-        List<Move> moves = new ArrayList<>();
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
+        ArrayList<Move> moves = new ArrayList<>();
         boolean cross = false;
         for (int i = x - 1; inBoard(i, y); i--) {
             int state = getState(i, y);

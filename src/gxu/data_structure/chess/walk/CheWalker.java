@@ -5,15 +5,14 @@ import gxu.data_structure.chess.Constants;
 import gxu.data_structure.chess.core.Move;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 车的走法
  */
 public class CheWalker extends AbstractWalker implements Constants {
     @Override
-    public List<Move> getAllMove(boolean red, int x, int y) {
-        List<Move> moves = new ArrayList<>();
+    public ArrayList<Move> getAllMove(boolean red, int x, int y) {
+        ArrayList<Move> moves = new ArrayList<>();
         //从4个方向所有情况判断一遍.
         for (int i = x - 1; inBoard(i, y); i--) {
             int state = getState(i, y);
