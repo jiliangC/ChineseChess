@@ -5,7 +5,6 @@ package gxu.data_structure.chess;
  */
 public class ChessGame {
     public static void main(String[] args) {
-        ChessWindow chessWindow = new ChessWindow(true);
-        chessWindow.setVisible(true);
+        new PrimaryPageWindow().setVisible(true);
     }
 }

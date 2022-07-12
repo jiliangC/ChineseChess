@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * 获取资源文件的工具类
@@ -13,14 +14,18 @@ import java.io.InputStream;
 public class Resource {
 
     public static InputStream getStream(String name) {
+
+        //这个是读取文件的
         String path = "res/" + name;
+
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(path);
         } catch (Exception e) {
             throw new RuntimeException("找不到资源" + name);
         }
-//        InputStream inputStream = Resource.class.getResourceAsStream("/" + name);
+//
+//        InputStream inputStream = Resource.class.getResourceAsStream("/res/" + name);
 //        if (inputStream == null) {
 //            throw new RuntimeException("找不到资源:" + name);
 //        }

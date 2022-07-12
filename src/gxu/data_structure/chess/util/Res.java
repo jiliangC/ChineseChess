@@ -23,7 +23,7 @@ public interface Res {
 
     //棋子资源
     BufferedImage imageChessBoard = Resource.getImage("main.gif");
-    BufferedImage redCheImg = Resource.getImage("红车.GIF");
+    BufferedImage redCheImg = Resource.getImage("红车.gif");
     BufferedImage redJiangImg = Resource.getImage("红将.gif");
     BufferedImage redMaImg = Resource.getImage("红马.gif");
     BufferedImage redPaoImg = Resource.getImage("红炮.gif");

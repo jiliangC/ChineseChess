@@ -1,6 +1,7 @@
 package gxu.data_structure.chess;
 
 import gxu.data_structure.chess.core.Move;
+import gxu.data_structure.chess.core.WalkState;
 import gxu.data_structure.chess.core.WinEnum;
 import gxu.data_structure.chess.robot.Piece;
 import gxu.data_structure.chess.walk.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class XqWalkState implements Constants {
+public class XqWalkState implements WalkState,Constants {
     //存棋子状态和对象
     private final HashMap<Integer, Walker> walkerMap = new HashMap<>();
     //象棋棋盘
